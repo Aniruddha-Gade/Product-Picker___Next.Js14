@@ -1,11 +1,16 @@
 import bcrypt from 'bcryptjs';
 import { Schema, model, models } from 'mongoose';
+import jwt from 'jsonwebtoken';
 
 export interface IUser extends Document {
+    _id: string;
     name: string;
     email: string;
     password: string;
     accountType: 'Admin' | 'Team member';
+    signAccessToken: () => string;
+    signRefreshToken: () => string;
+    comparePassword: (password: string) => Promise<boolean>;
 }
 
 
@@ -38,6 +43,29 @@ userSchema.pre('save', async function (next) {
     this.password = await bcrypt.hash(this.password, 10);
     next();
 });
+
+
+// compare user entered password , with hashed password store in DB
+userSchema.methods.comparePassword = async function (enteredPassword: string): Promise<boolean> {
+    return await bcrypt.compare(enteredPassword, this.password)
+}
+
+
+
+// sign Access Token
+userSchema.methods.signAccessToken = function () {
+    return jwt.sign({ _id: this._id, accountType: this.accountType, email: this.email, name: this.name }, process.env.ACCESS_TOKEN_SECRET || '', {
+        expiresIn: '7m'
+    })
+}
+
+// sign Refresh Token
+userSchema.methods.signRefreshToken = function () {
+    return jwt.sign({ _id: this._id, accountType: this.accountType, email: this.email, name: this.name }, process.env.REFRESH_TOKEN_SECRET || '', {
+        expiresIn: '3d'
+    })
+}
+
 
 const User = models.User || model<IUser>('User', userSchema);
 export default User;
