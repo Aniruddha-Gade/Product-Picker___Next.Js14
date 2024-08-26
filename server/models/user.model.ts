@@ -1,11 +1,11 @@
 import bcrypt from 'bcryptjs';
 import { Schema, model, models } from 'mongoose';
 
-interface IUser {
+export interface IUser extends Document {
     name: string;
     email: string;
     password: string;
-    role: 'Admin' | 'Team member';
+    accountType: 'Admin' | 'Team member';
 }
 
 
@@ -23,7 +23,7 @@ const userSchema = new Schema<IUser>({
         type: String,
         required: true
     },
-    role: {
+    accountType: {
         type: String,
         enum: ['Admin', 'Team member'],
         required: true
