@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { isAdmin, isAuthenticated, isTeamMember } from "../middleware/auth";
-import { reviewSubmission, submitReview } from "../controllers/review.controller";
+import { getAllPendingReviews, reviewSubmission, submitReview } from "../controllers/review.controller";
 
 const reviewRouter = Router()
 
@@ -12,6 +12,7 @@ reviewRouter.post('/submit-review/:productId', isAuthenticated, isTeamMember, su
 
 // only for Admin
 reviewRouter.put('/review-submission/:reviewId', isAuthenticated, isAdmin, reviewSubmission)
+reviewRouter.get('/get-pending-reviews', isAuthenticated, isAdmin, getAllPendingReviews)
 
 
 
