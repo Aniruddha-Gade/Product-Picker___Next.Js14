@@ -21,7 +21,8 @@ const userSchema = new Schema<IUser>({
     },
     password: {
         type: String,
-        required: true
+        minlength: [6, "Password must be at least 6 characters"],
+        select: false // whenever we fetch user data from DB , by default password will be excluded
     },
     accountType: {
         type: String,
