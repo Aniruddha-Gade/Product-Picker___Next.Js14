@@ -109,3 +109,72 @@ export const getAllPendingReviews = catchAsyncError(async (req: Request, res: Re
         return next(new ErrorHandler(error.message, 400, "Error while submit review"));
     }
 });
+
+
+
+
+// =========================== GET PROFILE STATS ===========================
+interface AdminStats {
+    approvedReviews: number;
+    rejectedReviews: number;
+    pendingReviews: number;
+    totalReviews: number;
+}
+
+interface TeamMemberStats {
+    approvedRequests: number;
+    rejectedRequests: number;
+    totalReviews: number;
+}
+
+type ProfileStats = AdminStats | TeamMemberStats;
+
+
+export const getProfileStats = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const userId = req.user._id
+        const userRole = req.user?.accountType
+
+        let stats: ProfileStats;
+
+        // Fetch stats for admin
+        if (userRole === 'Admin') {
+            const totalReviews = await ReviewModel.countDocuments({ reviewedBy: userId })
+            const approvedReviews = await ReviewModel.countDocuments({ reviewedBy: userId, status: 'approved' })
+            const rejectedReviews = await ReviewModel.countDocuments({ reviewedBy: userId, status: 'rejected' })
+            const pendingReviews = await ReviewModel.countDocuments({ status: 'pending' })
+
+            stats = {
+                totalReviews,
+                approvedReviews,
+                rejectedReviews,
+                pendingReviews,
+            };
+            // Fetch stats for team member
+        } else if (userRole === 'Team member') {
+            const totalReviews = await ReviewModel.countDocuments({ submittedBy: userId })
+            const approvedRequests = await ReviewModel.countDocuments({ submittedBy: userId, status: 'approved' })
+            const rejectedRequests = await ReviewModel.countDocuments({ submittedBy: userId, status: 'rejected' })
+            const pendingReviews = await ReviewModel.countDocuments({ submittedBy: userId, status: 'pending' })
+
+            stats = {
+                totalReviews,
+                approvedRequests,
+                rejectedRequests,
+                pendingReviews
+            };
+        } else {
+            return res.status(403).json({ message: 'Unauthorized access' })
+        }
+
+        // send suceess response
+        return res.status(200).json({
+            success: true,
+            stats,
+            message: "Profile stats fetched successfully"
+        });
+    }
+    catch (error) {
+        return next(new ErrorHandler(error.message, 400, "Error while submit review"));
+    }
+});
