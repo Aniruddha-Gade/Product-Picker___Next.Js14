@@ -4,7 +4,7 @@ import { IProduct } from './product.model';
 
 interface IReview {
     productId: Schema.Types.ObjectId;
-    updatedFields: Partial<IProduct>;
+    updatedFields?: Partial<IProduct>;
     status: 'pending' | 'approved' | 'rejected';
     submittedBy: Schema.Types.ObjectId;
     reviewedBy?: Schema.Types.ObjectId;   // mark as optional, initially the review is not reviewed
@@ -19,7 +19,7 @@ const reviewSchema = new Schema<IReview>({
     },
     updatedFields: {
         type: Schema.Types.Mixed,
-        required: true
+        required: false
     },
     status: {
         type: String,
