@@ -1,6 +1,7 @@
 import express, { NextFunction, Request, Response } from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import userRouter from "./route/user.route";
 
 require("dotenv").config();
 
@@ -19,6 +20,8 @@ app.use(
 
 
 
+// mount routes
+app.use('/api/v1/auth', userRouter)
 
 
 
