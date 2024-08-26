@@ -3,6 +3,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import userRouter from "./route/user.route";
 import { ErrorMiddleware } from "./middleware/error";
+import productRouter from "./route/product.route";
 
 require("dotenv").config();
 
@@ -23,6 +24,7 @@ app.use(
 
 // mount routes
 app.use('/api/v1/auth', userRouter)
+app.use('/api/v1/product', productRouter)
 
 
 
