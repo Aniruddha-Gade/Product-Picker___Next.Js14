@@ -1,9 +1,10 @@
 import { Router } from "express";
-import { registerUser } from './../controllers/user.controller';
+import { registerUser, activateUser } from './../controllers/user.controller';
 
 const userRouter = Router()
 
 userRouter.post('/registration', registerUser)
+userRouter.post('/activate-user', activateUser)
 
 
 

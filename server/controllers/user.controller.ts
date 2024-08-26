@@ -1,6 +1,6 @@
 
 import { NextFunction, Request, Response } from 'express';
-import User from '../models/user.model';
+import User, { IUser } from '../models/user.model';
 import ErrorHandler from './../utils/ErrorHandler';
 import { catchAsyncError } from './../utils/catchAsyncError';
 import jwt, { JwtPayload, Secret } from 'jsonwebtoken'
@@ -108,3 +108,49 @@ export const createActivationToken = (user: any): IActivationToken => {
     return { token, activationCode };
 };
 
+
+
+
+// =========================== ACTIVATE USER ===========================
+interface IActivationRequest {
+    activation_token: string,
+    activation_code: string
+}
+
+export const activateUser = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { activation_token, activation_code } = req.body as IActivationRequest;
+
+        if (!activation_token || !activation_code) {
+            return next(new ErrorHandler('activation_token and activation_code are required', 400, "Error while activating user"));
+        }
+
+        const newUser: { user: IUser; activationCode: string } = jwt.verify(
+            activation_token,
+            process.env.ACTIVATION_SECRET as string
+        ) as { user: IUser; activationCode: string };
+
+
+        if (newUser.activationCode !== activation_code) {
+            return next(new ErrorHandler("Invalid activation code", 400, "Error while activating user"));
+        }
+
+        const { name, email, password, accountType } = newUser.user;
+        // console.log({ name, email, password, accountType })
+
+        // Store user data in the database
+        const user = await User.create({
+            name, email, password, accountType,
+        });
+
+        res.status(201).json({
+            success: true,
+            user,
+            message: "User registered successfully 👍",
+        });
+    } catch (error: any) {
+        console.log(error);
+        return next(new ErrorHandler(error.message, 400, "Error while activating user"));
+    }
+}
+);
