@@ -46,3 +46,28 @@ export const createProduct = catchAsyncError(async (req: Request, res: Response,
         return next(new ErrorHandler(error.message, 400, "Error while creating product"));
     }
 });
+
+
+
+
+// =========================== GET PRODUCTS ===========================
+export const getProducts = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
+    try {
+
+
+        const createdBy = req.user?._id;
+
+        // Find user's products
+        const products = await ProductModel.find({ createdBy });
+
+        // send success response
+        res.status(201).json({
+            success: true,
+            products,
+            message: "Product created successfully",
+        });
+
+    } catch (error) {
+        return next(new ErrorHandler(error.message, 400, "Error while creating product"));
+    }
+});
