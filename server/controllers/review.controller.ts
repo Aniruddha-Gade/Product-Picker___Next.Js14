@@ -38,3 +38,48 @@ export const submitReview = catchAsyncError(async (req: Request, res: Response, 
         return next(new ErrorHandler(error.message, 400, "Error while submit review"));
     }
 });
+
+
+
+
+// =========================== REVIEW SUBMISSION ===========================
+interface IReviewSubmission {
+    status: string,
+}
+
+export const reviewSubmission = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { reviewId } = req.params;
+        const { status } = req.body as IReviewSubmission;  // 'pending' | 'approved' | 'rejected'
+        const adminId = req.user?._id;
+
+        // validate data
+        if (!reviewId || !status) {
+            return next(new ErrorHandler('reviewId and status fields are required', 400, "Error while product review submission"))
+        }
+
+        const review = await ReviewModel.findById(reviewId);
+        if (!review) {
+            return res.status(404).json({ message: 'Review not found' });
+        }
+
+        if (status === 'approved') {
+            // Update the product with the approved changes and set status to 'approved'
+            await ProductModel.findByIdAndUpdate(
+                review.productId,
+                { ...review.updatedFields, status: 'approved' }
+            );
+        }
+
+        review.status = status;
+        review.reviewedBy = adminId;
+        await review.save();
+
+        return res.status(200).json({
+            message: `Review ${status}`,
+            review
+        });
+    } catch (error) {
+        return next(new ErrorHandler(error.message, 400, "Error while product review submission"));
+    }
+});
