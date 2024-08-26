@@ -9,6 +9,7 @@ import path from 'path';
 import ejs from 'ejs';
 import optGenerator from 'otp-generator';
 import { sendToken } from '../utils/jwt';
+import { redis } from '../utils/redis';
 
 
 
@@ -198,5 +199,31 @@ export const loginUser = catchAsyncError(async (req: Request, res: Response, nex
 
     } catch (error) {
         return next(new ErrorHandler(error.message, 400, "Error while loging user"));
+    }
+})
+
+
+
+
+
+// =========================== LOGOUT USER ===========================
+export const logoutUser = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const userId = req.user?._id || ""
+
+        // remove id from redis
+        redis.del(userId)
+
+        // set cookies empty
+        res.cookie("access_token", '', { maxAge: 1 });
+        res.cookie("refresh_token", '', { maxAge: 1 });
+
+        res.status(200).json({
+            success: true,
+            message: "User logout successfully"
+        });
+
+    } catch (error) {
+        return next(new ErrorHandler(error.message, 400, "Error while logout user"));
     }
 })
