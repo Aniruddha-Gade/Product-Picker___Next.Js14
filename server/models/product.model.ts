@@ -5,6 +5,7 @@ export interface IProduct {
     description: string;
     images: string[];
     price: number;
+    status: 'pending' | 'approved' | 'rejected';
     createdBy: Schema.Types.ObjectId;
 }
 
@@ -31,6 +32,12 @@ const productSchema = new Schema<IProduct>({
         ref: 'User',
         required: true
     },
+    status: {
+        type: String,
+        enum: ['pending', 'approved', 'rejected'],
+        default: 'pending'  // New products start as 'pending'
+    }
+
 });
 
 
