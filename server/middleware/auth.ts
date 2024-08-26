@@ -45,3 +45,38 @@ export const isAuthenticated = catchAsyncError(async (req: Request, res: Respons
 })
 
 
+
+
+// =========================== IS Team Member ===========================
+export const isTeamMember = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        // console.log('User data -> ', req.user)
+        if (req.user?.accountType !== 'Team member') {
+            return next(new ErrorHandler(`Role : ${req.user?.accountType} is not allowed to access this resource`, 403, "Error while authenticating Team Member"));
+        }
+
+        // go to next middleware
+        next();
+
+    } catch (error) {
+        return next(new ErrorHandler(error.message, 400, "Error while authenticating student"));
+    }
+})
+
+
+
+
+// =========================== IS ADMIN ===========================
+export const isAdmin = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        if (req.user?.accountType !== 'Admin') {
+            return next(new ErrorHandler(`Role : ${req.user?.accountType} is not allowed to access this resource`, 403, "Error while authenticating Admin"));
+        }
+
+        // go to next middleware
+        next();
+
+    } catch (error) {
+        return next(new ErrorHandler(error.message, 400, "Error while authenticating Admin"));
+    }
+})
