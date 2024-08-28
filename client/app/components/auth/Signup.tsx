@@ -17,7 +17,7 @@ import {
 } from "../ui/select"
 import { useRegisterMutation } from './../../redux/features/auth/authApi';
 import { toast } from 'sonner';
-import LoadingButtonText from '@/app/utils/LoadingButtonText';
+import LoadingButtonText from '../../utils/LoadingButtonText';
 
 
 
@@ -63,7 +63,7 @@ const Signup: FC<Props> = ({ setRoute, setOpen }) => {
         }
         if (error) {
             if ("data" in error) {
-                console.log("USER REGISTER API ERROR => , error")
+                console.log("USER REGISTER API ERROR => ",error)
                 const errorData = error as any
                 toast.error(errorData.data.message)
             }

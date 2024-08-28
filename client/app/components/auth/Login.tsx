@@ -1,15 +1,19 @@
 'use client'
 
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { useFormik, } from 'formik';
+import { toast } from 'sonner';
 import * as Yup from 'yup';
 import { styles } from '../../styles/style';
 import Image from 'next/image';
 import AsteriskSymbol from './../../utils/AsteriskSymbol';
+import { useLoginMutation } from '../../redux/features/auth/authApi';
+import LoadingButtonText from '../../utils/LoadingButtonText';
 
 
 type Props = {
     setRoute: (route: string) => void
+    setOpen: (open: boolean) => void;
 }
 
 
@@ -20,18 +24,34 @@ const schema = Yup.object().shape({
 })
 
 
-const Login: FC<Props> = ({setRoute}) => {
+const Login: FC<Props> = ({ setRoute, setOpen }) => {
 
     const formik = useFormik({
         initialValues: { email: "", password: "" },
         validationSchema: schema,
         onSubmit: async ({ email, password }) => {
             console.log({ email, password })
+            await login({ email, password })
         }
     })
 
     const { errors, touched, values, handleChange, handleSubmit } = formik
     const [showPassword, setShowPassword] = useState(false)
+    const [login, { isSuccess, error, isLoading }] = useLoginMutation()
+
+    useEffect(() => {
+        if (isSuccess) {
+            toast.success("Login Successfully")
+            setOpen(false)
+        }
+        if (error) {
+            if ("data" in error) {
+                console.log("USER REGISTER API ERROR => , error")
+                const errorData = error as any
+                toast.error(errorData.data.message)
+            }
+        }
+    }, [isSuccess, error])
 
 
     return (
@@ -105,8 +125,11 @@ const Login: FC<Props> = ({setRoute}) => {
                 }
 
                 <div className='w-full mt-5'>
-                    <button type='submit' className={`${styles.button}`} >
-                        Login
+                    <button type='submit' disabled={isLoading} className={`${styles.button}`} >
+                        {
+                            isLoading ? <LoadingButtonText />
+                                : 'Login'
+                        }
                     </button>
                 </div>
 
