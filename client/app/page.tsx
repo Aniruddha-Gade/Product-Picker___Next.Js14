@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Heading from "./utils/Heading";
 import Header from "./components/Header";
+import AuthModal from "./components/auth/AuthModal";
 
 export default function Home() {
 
@@ -20,8 +21,8 @@ export default function Home() {
         keywords="sofa, table, tea table, "
       />
 
-       {/* navbar */}
-       <Header
+      {/* navbar */}
+      <Header
         setOpen={setOpen}
         open={open}
         activeItem={activeItem}
@@ -29,6 +30,14 @@ export default function Home() {
         setRoute={setRoute}
       />
 
+
+
+
+      {
+        route === 'auth' && <>
+          <AuthModal open={open} setOpen={setOpen} setRoute={setRoute} />
+        </>
+      }
 
     </div>
   );
