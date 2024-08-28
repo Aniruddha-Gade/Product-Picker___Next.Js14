@@ -17,6 +17,7 @@ import {
 } from "../ui/select"
 import { useRegisterMutation } from './../../redux/features/auth/authApi';
 import { toast } from 'sonner';
+import LoadingButtonText from '@/app/utils/LoadingButtonText';
 
 
 
@@ -38,7 +39,7 @@ const schema = Yup.object().shape({
 
 const Signup: FC<Props> = ({ setRoute, setOpen }) => {
 
-    const [register, { isError, data, isSuccess, error,  }] = useRegisterMutation()
+    const [register, { isError, data, isSuccess, error, isLoading }] = useRegisterMutation()
     const formik = useFormik({
         initialValues: { name: "", email: "", password: "", accountType: "" },
         validationSchema: schema,
@@ -47,11 +48,11 @@ const Signup: FC<Props> = ({ setRoute, setOpen }) => {
             const data = { email, password, accountType, name }
             await register(data)
         }
-    }) 
+    })
     const { errors, touched, values, handleChange, handleSubmit } = formik
     const [showPassword, setShowPassword] = useState(false)
 
-    
+
 
     useEffect(() => {
         if (isSuccess) {
@@ -190,8 +191,11 @@ const Signup: FC<Props> = ({ setRoute, setOpen }) => {
                 }
 
                 <div className='w-full mt-5'>
-                    <button type='submit' className={`${styles.button}`} >
-                        Signup
+                    <button type='submit' disabled={isLoading} className={`${styles.button}`} >
+                        {
+                            isLoading ? <LoadingButtonText />
+                                : 'Signup'
+                        }
                     </button>
                 </div>
 

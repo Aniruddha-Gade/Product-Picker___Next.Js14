@@ -20,6 +20,7 @@ import {
 import { toast } from "sonner"
 
 import { useActivationMutation } from './../../redux/features/auth/authApi';
+import LoadingButtonText from '@/app/utils/LoadingButtonText';
 
 
 
@@ -34,7 +35,7 @@ type Props = {
 const Verification: React.FC<Props> = ({ open, setOpen, setRoute }) => {
   const [enteredOTP, setEnteredOTP] = useState("")
   const { token } = useSelector((state: any) => state.auth)
-  const [activation, { isSuccess, error ,}] = useActivationMutation()
+  const [activation, { isSuccess, error, isLoading }] = useActivationMutation()
 
   const verificationHandler = async () => {
     if (enteredOTP.length !== 4) {
@@ -45,7 +46,7 @@ const Verification: React.FC<Props> = ({ open, setOpen, setRoute }) => {
       })
     }
   }
-console.log({token, })
+  console.log({ token, })
   useEffect(() => {
     if (isSuccess) {
       toast.success("Account activated successfully")
@@ -113,7 +114,11 @@ console.log({token, })
               onClick={verificationHandler}
               className={`${styles.button}`}
             >
-              Verify OTP
+              {
+                isLoading ? <LoadingButtonText />
+                  : ' Verify OTP'
+              }
+
             </button>
 
             <div>
