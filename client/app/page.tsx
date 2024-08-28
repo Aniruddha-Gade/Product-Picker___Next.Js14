@@ -5,6 +5,7 @@ import Image from "next/image";
 import Heading from "./utils/Heading";
 import Header from "./components/Header";
 import AuthModal from "./components/auth/AuthModal";
+import Verification from "./components/auth/Verification";
 
 export default function Home() {
 
@@ -36,6 +37,11 @@ export default function Home() {
       {
         route === 'auth' && <>
           <AuthModal open={open} setOpen={setOpen} setRoute={setRoute} />
+        </>
+      }
+       {
+        route === 'verification' && <>
+          <Verification open={open} setOpen={setOpen} setRoute={setRoute } />
         </>
       }
 
