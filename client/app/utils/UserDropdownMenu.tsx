@@ -1,4 +1,6 @@
-import React from 'react'
+'use client'
+
+import React, { useState } from 'react'
 import Image from 'next/image';
 import Link from 'next/link'
 import {
@@ -9,11 +11,26 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../components/ui/dropdown-menu"
+import { useLogoutQuery } from './../redux/features/auth/authApi'
+import { toast } from 'sonner'
+import { useRouter } from 'next/navigation'
+
+
 
 
 
 const UserDropdownMenu = () => {
+  const [logout, setLogout] = useState(false)
+  const { } = useLogoutQuery(undefined, {
+    skip: !logout ? true : false
+  })
+  const router = useRouter()
 
+  const logoutHandler = async () => {
+    setLogout(true)
+    toast.success("Logout successfully")
+    router.push("/")
+  }
 
   return (
     <div>
@@ -45,7 +62,9 @@ const UserDropdownMenu = () => {
 
           <DropdownMenuItem>Team</DropdownMenuItem>
 
-          <DropdownMenuItem>Log out</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => logoutHandler()}>
+            Log out
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
 
