@@ -31,8 +31,8 @@ const Verification: React.FC<Props> = ({ open, setOpen, setRoute }) => {
   const [enteredOTP, setEnteredOTP] = useState("")
 
   const verificationHandler = async () => {
-    if( enteredOTP.length !== 4 ){
-      toast.error("Please entered OTP")
+    if (enteredOTP.length !== 4) {
+      toast.error("Please Enter OTP")
     }
   }
 

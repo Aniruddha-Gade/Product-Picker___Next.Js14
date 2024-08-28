@@ -1,6 +1,6 @@
 'use client'
 
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { useFormik, } from 'formik';
 import * as Yup from 'yup';
 import { styles } from '../../styles/style';
@@ -15,6 +15,8 @@ import {
     SelectTrigger,
     SelectValue,
 } from "../ui/select"
+import { useRegisterMutation } from '@/app/redux/features/auth/authApi';
+import { toast } from 'sonner';
 
 
 
@@ -37,20 +39,35 @@ const schema = Yup.object().shape({
 const Signup: FC<Props> = ({ setRoute, setOpen }) => {
 
     const formik = useFormik({
-        initialValues: { name: "", email: "", password: "", accountType: "", avatar: "" },
+        initialValues: { name: "", email: "", password: "", accountType: "" },
         validationSchema: schema,
-        onSubmit: async ({ email, password, accountType, avatar, name }) => {
-            console.log({ email, password, accountType, avatar, name })
-            setRoute("verification")
-            setOpen(true)
+        onSubmit: async ({ email, password, accountType, name }) => {
+            console.log({ email, password, accountType, name })
+            const data = { email, password, accountType, name }
+            await register(data)
         }
-    })
-
-
+    }) 
     const { errors, touched, values, handleChange, handleSubmit } = formik
     const [showPassword, setShowPassword] = useState(false)
+    const [register, { isError, data, isSuccess, error }] = useRegisterMutation()
 
+    
 
+    useEffect(() => {
+        if (isSuccess) {
+            console.log("Sucess")
+            toast.success("OTP sent to mail")
+            setRoute("verification")
+            // setOpen(true)
+        }
+        if (error) {
+            if ("data" in error) {
+                console.log("error")
+                const errorData = error as any
+                toast.error(errorData.data.message)
+            }
+        }
+    }, [isSuccess, error])
 
     return (
         <div className='w-full'>

@@ -13,7 +13,7 @@ export const authApi = apiSlice.injectEndpoints({
         // register
         register: builder.mutation<RegistrationResponse, RegistrationData>({
             query: (data) => ({
-                url: "registration",
+                url: "/auth/registration",
                 method: "POST",
                 body: data,
                 credentials: "include" as const,
@@ -32,12 +32,13 @@ export const authApi = apiSlice.injectEndpoints({
         // activate account with OTP and Token
         activation: builder.mutation({
             query: ({ activation_token, activation_code }) => ({
-                url: "activate-user",
+                url: "/auth/activate-user",
                 method: "POST",
                 body: {
                     activation_token,
                     activation_code,
                 },
+                credentials: "include" as const,
             }),
         }),
     }),
