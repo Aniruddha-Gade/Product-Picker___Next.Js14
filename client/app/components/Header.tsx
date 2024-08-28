@@ -1,6 +1,7 @@
 'use client'
 
 import React, { FC, useState } from 'react'
+import {useSelector} from 'react-redux'
 import Image from 'next/image';
 import Link from 'next/link';
 import NavItems from '../utils/NavItems'
@@ -20,8 +21,9 @@ type HeaderProps = {
 const Header: FC<HeaderProps> = ({ activeItem, open, route, setRoute, setOpen }) => {
 
     const [active, setActive] = useState(false)
-
-    const token = ""
+    const { token,user } = useSelector((state: any) => state.auth)
+console.log("token from header = ", token)
+// console.log("user = ", user)
 
     if (typeof window !== undefined) {
         window.addEventListener("scroll", () => {

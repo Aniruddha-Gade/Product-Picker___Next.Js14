@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState = {
-  token: "",
-  user: "",
+  token: "jha kam",
+  user: "okk",
 };
 
 const authSlice = createSlice({
