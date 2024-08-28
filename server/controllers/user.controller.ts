@@ -290,3 +290,28 @@ export const updateAccessToken = catchAsyncError(async (req: Request, res: Respo
         return next(new ErrorHandler(error.message, 400, "Error while updating access token"));
     }
 })
+
+
+
+
+
+
+// =========================== GET USER INFO ===========================
+export const getUserInfo = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const userId = req.user?._id as string;
+        const userJson = await redis.get(userId)
+
+        if (userJson) {
+            const user = JSON.parse(userJson)
+            res.status(201).json({
+                success: true,
+                user,
+                message: "User data fetch by ID successfully"
+            })
+        }
+
+    } catch (error) {
+        return next(new ErrorHandler(error.message, 400, "Error while fetching userInfo"));
+    }
+})
