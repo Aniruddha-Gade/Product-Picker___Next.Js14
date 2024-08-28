@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { styles } from '../../styles/style';
 import Image from 'next/image';
 import Login from './Login'
+import Signup from './Signup'
 
 
 import {
@@ -95,7 +96,7 @@ const AuthModal: React.FC<Props> = ({ setRoute, setOpen, open }) => {
 
                         {/* signup content */}
                         <TabsContent className='flex flex-col gap-5 ' value='signup'>
-
+                            <Signup setRoute={setRoute} setOpen={setOpen} />
                         </TabsContent>
                     </Tabs>
                 </div>
