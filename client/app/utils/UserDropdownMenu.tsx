@@ -10,7 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "../components/ui/dropdown-menu"
 
- 
+
 
 const UserDropdownMenu = () => {
 
@@ -19,15 +19,15 @@ const UserDropdownMenu = () => {
     <div>
       <DropdownMenu>
         <DropdownMenuTrigger className='outline-none border-none '>
-         <div className='w-8 h-8 '>
-         <Image
-            src='/assets/images/aniruddha-profile.jpg'
-            width={30}
-            height={30}
-            className='w-full h-full rounded-full object-cover'
-            alt="Profile Icon"
-          />
-         </div>
+          <div className='w-8 h-8 '>
+            <Image
+              src='/assets/images/aniruddha-profile.jpg'
+              width={30}
+              height={30}
+              className='w-full h-full rounded-full object-cover'
+              alt="Profile Icon"
+            />
+          </div>
         </DropdownMenuTrigger>
 
 
@@ -37,14 +37,14 @@ const UserDropdownMenu = () => {
 
           <Link href='/profile'>
             <DropdownMenuItem >Profile</DropdownMenuItem>
-            </Link>
+          </Link>
 
           <Link href='/dashboard'>
             <DropdownMenuItem >Dashboard</DropdownMenuItem>
-            </Link>
+          </Link>
 
           <DropdownMenuItem>Team</DropdownMenuItem>
-          
+
           <DropdownMenuItem>Log out</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
