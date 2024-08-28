@@ -17,21 +17,21 @@ export const sidebarLinks: SidebarLink[] = [
     id: 1,
     name: "My Profile",
     path: "/dashboard/profile",
-    icon: "VscAccount",
+    icon: "/assets/icons/profile-icon.png",
     roles: [ACCOUNT_TYPE.TEAM_MEMBER, ACCOUNT_TYPE.ADMIN],
   },
   {
     id: 2,
     name: "All Products",
     path: "/dashboard/all-products",
-    icon: "VscDashboard",
+    icon: "/assets/icons/products-icon.png",
     roles: [ACCOUNT_TYPE.TEAM_MEMBER, ACCOUNT_TYPE.ADMIN],
   },
   {
     id: 4,
     name: "My Submissions",
     path: "/dashboard/team-member/my-submissions",
-    icon: "VscVm",
+    icon: "/assets/icons/submission-icon.png",
     roles: [ACCOUNT_TYPE.TEAM_MEMBER],
   },
 
@@ -40,8 +40,8 @@ export const sidebarLinks: SidebarLink[] = [
     id: 5,
     name: "Pending Requests",
     path: "/dashboard/admin/pending-requests",
-    icon: "VscBook",
+    icon: "/assets/icons/watch-icon.png",
     roles: [ACCOUNT_TYPE.ADMIN],
   },
- 
+
 ];

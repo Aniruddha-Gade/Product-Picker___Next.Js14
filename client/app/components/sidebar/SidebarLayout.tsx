@@ -1,3 +1,4 @@
+'use client'
 
 import { ReactNode, useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -8,6 +9,7 @@ import { sidebarLinks, SidebarLink } from './../../constants/sidebar'
 import Header from '../Header'
 import Heading from '../../utils/Heading'
 import Protected from "../../hooks/useProtectedRoute"
+import Image from 'next/image';
 
 
 interface LayoutProps {
@@ -23,7 +25,7 @@ const Layout = ({ children, userRole }: LayoutProps) => {
   const [route, setRoute] = useState("")
 
   const filteredLinks = sidebarLinks.filter((link: SidebarLink) => link.roles.includes(userRole))
-  console.log("filteredLinks =", filteredLinks)
+  // console.log("filteredLinks =", filteredLinks)
 
 
 
@@ -31,7 +33,7 @@ const Layout = ({ children, userRole }: LayoutProps) => {
     <Protected>
 
 
-      <main className="flex-1 p-6">
+      <main className="flex-1 ">
         <Heading
           title={`${user?.name} Dashboard`}
           description="Product Picker is platform for ..."
@@ -50,17 +52,27 @@ const Layout = ({ children, userRole }: LayoutProps) => {
       </main>
 
       <div className="flex">
-        <aside className="w-64 bg-gray-800">
-          <ul>
+        <aside className="w-80 p-1 bg-white/25 dark:bg-black/15 text-black dark:text-white ">
+          <ul className='flex flex-col items-center'>
             {filteredLinks.map((link: SidebarLink) => (
-              <li key={link.id} className={router.pathname === link.path ? 'bg-green-600' : 'bg-red-600'}>
-                <Link href={link.path}>
-                  <p className="flex items-center p-4 text-white">
-                    <span className="icon">{link.icon}</span>
-                    <span className="ml-4">{link.name}</span>
+              <Link
+                key={link.id}
+                href={link.path}
+                className={`w-full h-full my-2 p-3 hover:dark:bg-white/15 hover:dark:text-white hover:bg-black/10 duration-200`}>
+                <li className="flex items-center gap-5">
+                  <Image
+                    className="cursor-pointer object-contain"
+                    src={link.icon}
+                    width={30}
+                    height={30}
+                    alt={link.name}
+                  />
+
+                  <p className="flex items-center">
+                    <span>{link.name}</span>
                   </p>
-                </Link>
-              </li>
+                </li>
+              </Link>
             ))}
           </ul>
         </aside>
