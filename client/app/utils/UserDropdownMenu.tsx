@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'next/image';
-
+import Link from 'next/link'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,8 +10,11 @@ import {
   DropdownMenuTrigger,
 } from "../components/ui/dropdown-menu"
 
+ 
 
 const UserDropdownMenu = () => {
+
+
   return (
     <div>
       <DropdownMenu>
@@ -31,10 +34,18 @@ const UserDropdownMenu = () => {
         <DropdownMenuContent>
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Dashboard</DropdownMenuItem>
-          <DropdownMenuItem>Billing</DropdownMenuItem>
+
+          <Link href='/profile'>
+            <DropdownMenuItem >Profile</DropdownMenuItem>
+            </Link>
+
+          <Link href='/dashboard'>
+            <DropdownMenuItem >Dashboard</DropdownMenuItem>
+            </Link>
+
           <DropdownMenuItem>Team</DropdownMenuItem>
-          <DropdownMenuItem>Subscription</DropdownMenuItem>
+          
+          <DropdownMenuItem>Log out</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
 
