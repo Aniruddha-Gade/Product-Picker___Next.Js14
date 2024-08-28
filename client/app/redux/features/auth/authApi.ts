@@ -22,7 +22,7 @@ export const authApi = apiSlice.injectEndpoints({
                 try {
                     const result = await queryFulfilled;
                     console.log("REGISTRATION API RESULT => ", result)
-                    dispatch(userRegistration({ activationToken: result.data.activationToken }));
+                    dispatch(userRegistration({ token: result.data.activationToken }));
                 } catch (error: any) {
                     console.log("REGISTRATION API ERROR => ", error)
                 }
@@ -31,15 +31,20 @@ export const authApi = apiSlice.injectEndpoints({
 
         // activate account with OTP and Token
         activation: builder.mutation({
-            query: ({ activation_token, activation_code }) => ({
+            query: (data) => ({
                 url: "/auth/activate-user",
                 method: "POST",
-                body: {
-                    activation_token,
-                    activation_code,
-                },
-                credentials: "include" as const,
+                body: data,
+                // credentials: "include" as const,
             }),
+            async onQueryStarted(arg, { queryFulfilled }) {
+                try {
+                    const result = await queryFulfilled;
+                    console.log("ACTIVATION USER ACCOUNT API RESULT => ", result)
+                } catch (error: any) {
+                    console.log("ACTIVATION USER ACCOUNT API ERROR => ", error)
+                }
+            },
         }),
     }),
 });

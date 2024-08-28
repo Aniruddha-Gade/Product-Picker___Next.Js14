@@ -1,5 +1,6 @@
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import Image from 'next/image'
 import { styles } from './../../styles/style';
 import {
@@ -18,6 +19,9 @@ import {
 } from "../ui/input-otp"
 import { toast } from "sonner"
 
+import { useActivationMutation } from './../../redux/features/auth/authApi';
+
+
 
 
 type Props = {
@@ -29,12 +33,31 @@ type Props = {
 
 const Verification: React.FC<Props> = ({ open, setOpen, setRoute }) => {
   const [enteredOTP, setEnteredOTP] = useState("")
+  const { token } = useSelector((state: any) => state.auth)
+  const [activation, { isSuccess, error ,}] = useActivationMutation()
 
   const verificationHandler = async () => {
     if (enteredOTP.length !== 4) {
       toast.error("Please Enter OTP")
+    } else {
+      await activation({
+        activation_token: token, activation_code: enteredOTP
+      })
     }
   }
+console.log({token, })
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Account activated successfully")
+    }
+    if (error) {
+      if ("data" in error) {
+        console.log("USER ACTIVATION API ERROR => ", error)
+        const errorData = error as any
+        toast.error(errorData.data.message)
+      }
+    }
+  }, [isSuccess, error])
 
   return (
     <Dialog open={open} onOpenChange={setOpen} >

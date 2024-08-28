@@ -15,7 +15,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "../ui/select"
-import { useRegisterMutation } from '@/app/redux/features/auth/authApi';
+import { useRegisterMutation } from './../../redux/features/auth/authApi';
 import { toast } from 'sonner';
 
 
@@ -38,6 +38,7 @@ const schema = Yup.object().shape({
 
 const Signup: FC<Props> = ({ setRoute, setOpen }) => {
 
+    const [register, { isError, data, isSuccess, error,  }] = useRegisterMutation()
     const formik = useFormik({
         initialValues: { name: "", email: "", password: "", accountType: "" },
         validationSchema: schema,
@@ -49,7 +50,6 @@ const Signup: FC<Props> = ({ setRoute, setOpen }) => {
     }) 
     const { errors, touched, values, handleChange, handleSubmit } = formik
     const [showPassword, setShowPassword] = useState(false)
-    const [register, { isError, data, isSuccess, error }] = useRegisterMutation()
 
     
 
@@ -62,7 +62,7 @@ const Signup: FC<Props> = ({ setRoute, setOpen }) => {
         }
         if (error) {
             if ("data" in error) {
-                console.log("error")
+                console.log("USER REGISTER API ERROR => , error")
                 const errorData = error as any
                 toast.error(errorData.data.message)
             }
