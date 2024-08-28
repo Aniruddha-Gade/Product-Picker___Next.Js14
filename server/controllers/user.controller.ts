@@ -8,7 +8,7 @@ import sendMail from './../utils/sendMail';
 import path from 'path';
 import ejs from 'ejs';
 import optGenerator from 'otp-generator';
-import { sendToken } from '../utils/jwt';
+import { sendToken, accessTokenOptions, refreshTokenOptions, } from '../utils/jwt';
 import { redis } from '../utils/redis';
 
 
@@ -44,7 +44,7 @@ export const registerUser = catchAsyncError(async (req: Request, res: Response, 
             password,
             accountType,
         }
- 
+
         // create token and OTP
         const activationToken = createActivationToken(user)
         const activationCode = activationToken.activationCode
@@ -225,5 +225,68 @@ export const logoutUser = catchAsyncError(async (req: Request, res: Response, ne
 
     } catch (error) {
         return next(new ErrorHandler(error.message, 400, "Error while logout user"));
+    }
+})
+
+
+
+
+
+
+
+// =========================== LOGOUT USER ===========================
+export const updateAccessToken = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const refresh_token = req.cookies.refresh_token as string;
+
+        const decodedToken = jwt.verify(
+            refresh_token,
+            process.env.REFRESH_TOKEN_SECRET as string
+        ) as JwtPayload;
+
+
+        if (!decodedToken) {
+            return next(new ErrorHandler('Could not refresh token, refresh_token is invalid', 400, "Error while updating access token"));
+        }
+
+        // get data from redis
+        const session = await redis.get(decodedToken._id as string);
+        if (!session) {
+            return next(new ErrorHandler('Please login to access this resource ,could not get user data from redis', 400, "Error while updating access token"));
+        }
+
+        const user = JSON.parse(session);
+
+
+        // create tokens
+        const accessToken = jwt.sign(
+            { _id: user._id, accountType: user.accountType, email: user.email, name: user.name },
+            process.env.ACCESS_TOKEN_SECRET as string,
+            { expiresIn: "5m" }
+        );
+
+        const refreshToken = jwt.sign(
+            { _id: user._id, accountType: user.accountType, email: user.email, name: user.name },
+            process.env.REFRESH_TOKEN_SECRET as string,
+            { expiresIn: "3d" }
+        );
+
+        // store in request
+        req.user = user
+
+        // set cookies
+        res.cookie("access_token", accessToken, accessTokenOptions);
+        res.cookie("refresh_token", refreshToken, refreshTokenOptions);
+
+        // store in redis with 7 days expiry time
+        await redis.set(user._id, JSON.stringify(user), "EX", 604800) // 7 days
+
+        res.status(200).json({
+            success: true,
+            accessToken,
+        });
+
+    } catch (error) {
+        return next(new ErrorHandler(error.message, 400, "Error while updating access token"));
     }
 })
