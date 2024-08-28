@@ -7,6 +7,7 @@ import Link from 'next/link';
 import NavItems from '../utils/NavItems'
 import { ThemeSwitcher } from '../utils/ThemeSwitcher'
 import MobileMenu from './../utils/MobileMenu';
+import  UserDropdownMenu  from '../utils/UserDropdownMenu'
 
 
 
@@ -21,9 +22,9 @@ type HeaderProps = {
 const Header: FC<HeaderProps> = ({ activeItem, open, route, setRoute, setOpen }) => {
 
     const [active, setActive] = useState(false)
-    const { token,user } = useSelector((state: any) => state.auth)
-console.log("token from header = ", token)
-// console.log("user = ", user)
+    const { token, } = useSelector((state: any) => state.auth)
+
+
 
     if (typeof window !== undefined) {
         window.addEventListener("scroll", () => {
@@ -73,9 +74,7 @@ console.log("token from header = ", token)
                             {/* profile photo + dropdown-menu / login-signup */}
                             {
                                 token ? (
-                                    <div>
-                                        Dada, tu logged aahes
-                                    </div>
+                                    <UserDropdownMenu />
                                 )
                                     :
                                     (
