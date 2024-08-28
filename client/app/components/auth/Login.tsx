@@ -1,6 +1,7 @@
 'use client'
 
 import React, { FC, useEffect, useState } from 'react'
+import {useRouter} from 'next/navigation'
 import { useFormik, } from 'formik';
 import { toast } from 'sonner';
 import * as Yup from 'yup';
@@ -9,7 +10,6 @@ import Image from 'next/image';
 import AsteriskSymbol from './../../utils/AsteriskSymbol';
 import { useLoginMutation } from '../../redux/features/auth/authApi';
 import LoadingButtonText from '../../utils/LoadingButtonText';
-
 
 type Props = {
     setRoute: (route: string) => void
@@ -38,11 +38,13 @@ const Login: FC<Props> = ({ setRoute, setOpen }) => {
     const { errors, touched, values, handleChange, handleSubmit } = formik
     const [showPassword, setShowPassword] = useState(false)
     const [login, { isSuccess, error, isLoading }] = useLoginMutation()
+const router = useRouter()
 
     useEffect(() => {
         if (isSuccess) {
             toast.success("Login Successfully")
             setOpen(false)
+            router.push("/dashboard")
         }
         if (error) {
             if ("data" in error) {

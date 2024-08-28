@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { useSelector } from 'react-redux'
 import Heading from "../utils/Heading"
 import Header from "../components/Header"
+import Protected from "../hooks/useProtectedRoute"
 
 const page = () => {
 
@@ -12,9 +13,14 @@ const page = () => {
   const [activeItem, setActiveItem] = useState(0)
   const [route, setRoute] = useState("")
   const {user} = useSelector((state: any) => state.auth)
-console.log(' user = ', user)
+
+
+  
   return (
+      <Protected>
     <div className="">
+
+  
       <Heading
         title={`${user.name} profile`}
         description="Product Picker is platform for ..."
@@ -49,6 +55,7 @@ console.log(' user = ', user)
 
 
     </div>
+    </Protected>
   )
 }
 

@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux";
 
 export default function userAuth() {
-    const { user } = useSelector((state: any) => state.auth);
-    console.log("User Details from store => ", user)
+    const { user, token } = useSelector((state: any) => state.auth);
 
-    if (user) {
+
+    if (user && token) {
         return true;
     } else {
         return false;
