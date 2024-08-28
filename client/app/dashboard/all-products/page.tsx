@@ -5,16 +5,12 @@ import { useSelector } from 'react-redux'
 import { toast } from 'sonner';
 import SidebarLayout from '../../components/sidebar/SidebarLayout'
 import { useAllProductsQuery } from '../../redux/features/product/productApi';
-
+import Link from "next/link"
 
 const AllProductsPage = () => {
   const [products, setProducts] = useState([]);
   const { user } = useSelector((state: any) => state.auth)
-  // const { products } = useSelector((state: any) => state.product)
   const { data, isSuccess, error, isLoading } = useAllProductsQuery({})
-
-  console.log("products from all-products = ", data)
-
 
 
 
@@ -37,14 +33,19 @@ const AllProductsPage = () => {
         <h1 className="text-2xl font-bold mb-6">All Products</h1>
 
 
-        <ul className="space-y-4">
+        <ul className="w-full grid grid-rows-4 grid-flow-col gap-4">
           {products.map(product => (
-          <li key={product._id} className="p-4 bg-black/20 dark:bg-white/10 rounded-md shadow-md">
-            <h2 className="text-xl font-semibold">{product.title}</h2>
-            <p>{product.description}</p>
-            <p className="font-bold">Price: ${product.price}</p>
-          </li>
-        ))}
+            <Link
+              href={`/product/${product._id}`}
+              className="p-4 bg-black/5 dark:bg-white/10 hover:bg-black/10 hover:dark:bg-white/15 rounded-xl hover:shadow-md"
+            >
+              <li key={product._id} >
+                <h2 className="text-xl font-semibold">{product.title}</h2>
+                <p>{product.description}</p>
+                <p className="font-bold">Price: ${product.price}</p>
+              </li>
+            </Link>
+          ))}
         </ul>
       </div>
     </SidebarLayout>
