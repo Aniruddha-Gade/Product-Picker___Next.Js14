@@ -7,6 +7,7 @@ import SidebarLayout from '../../../components/sidebar/SidebarLayout'
 import { usePendingRequestsQuery } from '../../../redux/features/review/reviewApi';
 import Link from "next/link"
 import AdminProtected from '../../../hooks/adminProtected'
+import {LoadingRequestSkeleton} from "../../../utils/LoadingSkeleton"
 
 
 const PendingRequestPage = () => {
@@ -36,7 +37,16 @@ const PendingRequestPage = () => {
           <h1 className="text-2xl font-bold mb-6">All Pending Requests</h1>
 
 
-          {pendingRequests && pendingRequests.length > 0 ? (
+          {
+          isLoading ? (
+            <div className="w-full grid grid-cols-1 gap-4">
+              <LoadingRequestSkeleton />
+              <LoadingRequestSkeleton />
+              <LoadingRequestSkeleton />
+            </div>
+          ) : !isLoading && !pendingRequests ? (
+            <div>There are no pending Requests...!</div>
+          ) : (
             <ul className="space-y-4">
               {pendingRequests.map((request) => (
                 <Link
@@ -76,21 +86,14 @@ const PendingRequestPage = () => {
                           }`}>
                           {request.status}
                         </span>
-
-
                       </div>
                     </div>
                   </li>
                 </Link>
               ))}
             </ul>
-          ) : (
-            <div className="text-center text-gray-600 dark:text-gray-400">
-              No pending requests found.
-            </div>
-          )}
-
-
+          )
+        }
         </div>
       </AdminProtected>
     </SidebarLayout>

@@ -1,9 +1,31 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const initialState = {
-  token: localStorage.getItem("token") ? JSON.parse(localStorage.getItem("token")) : null,
-  user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null,
+const parseJSON = (value: string | null) => {
+  try {
+    return value ? JSON.parse(value) : null;
+  } catch (error) {
+    console.error("Error parsing JSON:", error);
+    return null;
+  }
 };
+
+const token = parseJSON(localStorage.getItem("token"));
+const user = parseJSON(localStorage.getItem("user"));
+
+// If either token or user is null, clear both from localStorage and state
+if (!token || !user) {
+  console.log("run here")
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
+}
+
+const initialState = {
+  token: token ? token : null,
+  user: user ? user : null,
+};
+
+
+
 
 const authSlice = createSlice({
   name: "auth",
