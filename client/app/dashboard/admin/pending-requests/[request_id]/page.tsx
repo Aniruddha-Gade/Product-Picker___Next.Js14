@@ -6,32 +6,25 @@ import { useSelector } from 'react-redux'
 import SidebarLayout from '../../../../components/sidebar/SidebarLayout'
 import AdminProtected from '../../../../hooks/adminProtected'
 import { toast } from 'sonner';
-import { useGetSingleReviewQuery } from '../../../../redux/features/review/reviewApi';
+import { useGetSingleReviewQuery, useReviewSubmissionMutation } from '../../../../redux/features/review/reviewApi';
 import { LoadingRequestSkeleton } from "../../../../utils/LoadingSkeleton"
 import { ACCOUNT_TYPE } from '../../../../constants/account-types'
 // import { IProduct } from "../../../../types/type"
 
-import {
-    Table,
-    TableBody,
-    TableCaption,
-    TableCell,
-    TableFooter,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "../../../../components/ui/table"
-
+import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow, } from "../../../../components/ui/table"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "../../../../components/ui/select"
 
 
 
 const page = ({ params: { request_id }, }) => {
     const [request, setRequest] = useState<IProduct>();
+    const [reviewStatus, setReviewStatus] = useState<string | undefined>();
     const { user } = useSelector((state: any) => state.auth)
     const { data: singleReviewData, isSuccess: singleReviewIsSuccess, error: singleReviewError, isLoading: singleReviewIsLoading } = useGetSingleReviewQuery({ request_id })
+    const [reviewSubmission, { data: reviewSubmissionData, isSuccess: reviewSubmissionIsSuccess, error: reviewSubmissionError, isLoading: reviewSubmissionIsLoading }] = useReviewSubmissionMutation({})
 
 
-    const status = 'approv'
+
 
     useEffect(() => {
         if (singleReviewIsSuccess) {
@@ -45,6 +38,19 @@ const page = ({ params: { request_id }, }) => {
             }
         }
     }, [singleReviewIsSuccess, singleReviewError])
+
+
+    useEffect(() => {
+        if (request) {
+            setReviewStatus(request.status);
+        }
+    }, [request]);
+
+    const handleStatusChange = async (val) => {
+        setReviewStatus(val)
+        await reviewSubmission({ reviewId: request_id, status: val });
+    }
+    console.log("reviewStatus = ", reviewStatus)
 
 
 
@@ -96,9 +102,9 @@ const page = ({ params: { request_id }, }) => {
 
                                             </TableCell>
                                             <TableCell>
-                                                <p className={`text-md p-1 text-center rounded-full font-medium ${request?.status === 'pending' ?
+                                                <p className={`capitalize text-md p-2 text-center rounded-full font-medium ${request?.status === 'pending' ?
                                                     'bg-yellow-200 text-black' : request?.status === 'approved' ?
-                                                        'bg-green-200 text-white' : 'bg-red-200 text-red-black'}`}
+                                                        'bg-green-400 text-white' : 'bg-red-400 text-black'}`}
                                                 >
                                                     {request?.status}
                                                 </p>
@@ -159,7 +165,22 @@ const page = ({ params: { request_id }, }) => {
 
                                     <TableFooter>
                                         <TableRow>
+                                            <TableCell className='flex flex-row gap-4 items-center'>
+                                                <p>Change Status</p>
+                                                <Select value={reviewStatus} onValueChange={handleStatusChange} className="text-black dark:text-white">
+                                                    <SelectTrigger className="w-[180px]">
+                                                        <SelectValue placeholder="Status" />
+                                                    </SelectTrigger>
+                                                    <SelectContent>
+                                                        <SelectItem value="pending">Pending</SelectItem>
+                                                        <SelectItem value="approved">Approved</SelectItem>
+                                                        <SelectItem value="rejected">Rejected</SelectItem>
+                                                    </SelectContent>
+                                                </Select>
 
+
+
+                                            </TableCell>
                                         </TableRow>
                                     </TableFooter>
                                 </Table>

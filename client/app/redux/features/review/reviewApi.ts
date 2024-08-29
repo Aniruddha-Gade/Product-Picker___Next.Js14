@@ -63,8 +63,8 @@ export const reviewApi = apiSlice.injectEndpoints({
         // Review Submission
         reviewSubmission: builder.mutation({
             query: ({reviewId, status}) => ({
-                url: `/review-submission/${reviewId}`,
-                method: "POST",
+                url: `/review/review-submission/${reviewId}`,
+                method: "PUT",
                 body:{status},
                 credentials: "include" as const,
             }),
