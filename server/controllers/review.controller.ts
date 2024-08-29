@@ -96,6 +96,7 @@ export const getAllPendingReviews = catchAsyncError(async (req: Request, res: Re
             status: 'pending'
         })
             .populate('submittedBy', 'name email')
+            .populate('reviewedBy', 'name email')
             .populate('productId', 'title');
 
 
