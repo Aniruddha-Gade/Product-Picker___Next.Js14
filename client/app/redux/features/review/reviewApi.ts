@@ -44,7 +44,7 @@ export const reviewApi = apiSlice.injectEndpoints({
 
         // get-pending-reviews
         getSingleReview: builder.query({
-            query: ({reviewId}) => ({
+            query: ({request_id:reviewId}) => ({
                 url: `/review/get-single-review/${reviewId}`,
                 method: "GET",
                 credentials: "include" as const,
@@ -60,10 +60,28 @@ export const reviewApi = apiSlice.injectEndpoints({
         }),
 
 
+        // Review Submission
+        reviewSubmission: builder.mutation({
+            query: ({reviewId, status}) => ({
+                url: `/review-submission/${reviewId}`,
+                method: "POST",
+                body:{status},
+                credentials: "include" as const,
+            }),
+            async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+                try {
+                    const result = await queryFulfilled;
+                    console.log("REVIEW SUBMISSION (ADMIN) API RESULT => ", result)
+                } catch (error: any) {
+                    console.log("REVIEW SUBMISSION (ADMIN) API ERROR => ", error)
+                }
+            }
+        }),
+
 
 
     }),
 });
 
 
-export const {  usePendingRequestsQuery , useSubmitReviewMutation, useGetSingleReviewQuery,  } = reviewApi
+export const {  usePendingRequestsQuery , useSubmitReviewMutation, useGetSingleReviewQuery, useReviewSubmissionMutation } = reviewApi

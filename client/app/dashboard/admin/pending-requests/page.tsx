@@ -51,7 +51,7 @@ const PendingRequestPage = () => {
               {pendingRequests.map((request) => (
                 <Link
                   key={request._id}
-                  href={`/pending-requests/${request._id}`}
+                  href={`/dashboard/admin/pending-requests/${request._id}`}
                   className="block p-5 bg-white dark:bg-gray-800 shadow-md hover:shadow-lg rounded-lg transition-shadow duration-300"
                 >
                   <li className="flex flex-col md:flex-row justify-between items-start md:items-center">
