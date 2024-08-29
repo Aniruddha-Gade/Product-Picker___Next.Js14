@@ -99,7 +99,7 @@ export const getSingleReview = catchAsyncError(async (req: Request, res: Respons
         const review = await ReviewModel.findById(reviewId)
             .populate('submittedBy', 'name email')
             .populate('reviewedBy', 'name email')
-            .populate('productId', 'title');
+            .populate('productId', 'title description price');
 
 
         return res.status(201).json({

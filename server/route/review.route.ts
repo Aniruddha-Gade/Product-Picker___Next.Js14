@@ -16,7 +16,7 @@ reviewRouter.post('/submit-review/:productId', updateAccessToken, isAuthenticate
 // only for Admin
 reviewRouter.put('/review-submission/:reviewId', updateAccessToken, isAuthenticated, isAdmin, reviewSubmission)
 reviewRouter.get('/get-pending-reviews', updateAccessToken, isAuthenticated, isAdmin, getAllPendingReviews)
-reviewRouter.get('/get-single-review:reviewId', updateAccessToken, isAuthenticated, isAdmin, getSingleReview)
+reviewRouter.get('/get-single-review/:reviewId', updateAccessToken, isAuthenticated, isAdmin, getSingleReview)
 
 
 
