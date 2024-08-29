@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+
 import { useSelector } from 'react-redux'
 
 import SidebarLayout from '../../components/sidebar/SidebarLayout'

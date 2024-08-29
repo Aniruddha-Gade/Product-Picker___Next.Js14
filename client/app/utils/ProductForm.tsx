@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useCreateProductMutation,  } from '../redux/features/product/productApi';
+import { useSubmitReviewMutation,  } from '../redux/features/review/reviewApi';
 import { toast } from 'sonner';
 import { styles } from '../styles/style';
 import AsteriskSymbol from './AsteriskSymbol';
@@ -17,7 +18,7 @@ export interface IProduct  {
 }
 
 type productFormProps = {
-    type: 'Create' | 'Update',
+    type: 'Create' | 'Review',
     product?: IProduct,
     productId?: string
 }
@@ -30,22 +31,36 @@ const schema = Yup.object().shape({
 
 const ProductForm = ({ type, product, productId }: productFormProps) => {
     const [createProduct, { data: createData, isSuccess: isCreateSuccess, error: createError, isLoading: isCreateLoading }] = useCreateProductMutation();
+    const [submitReview, { data: reviewData, isSuccess: isReviewSuccess, error: reviewError, isLoading: isReviewLoading }] = useSubmitReviewMutation();
+
+    if (type === "Review" && !product) {
+        return <div className ='text-7xl text-red-500 bg-green-500'>Loading...</div>;
+    }
+    
+
 
     const formik = useFormik({
         initialValues: {
-            title: product?.title || "",
-            description: product?.description || "",
-            price: product?.price || 0,
+            title: type === "Review" && product ? product.title : "",
+            description: type === "Review" && product ? product.description : "",
+            price: type === "Review" && product ? product.price : 0,
         },
         validationSchema: schema,
+        enableReinitialize: true, 
         onSubmit: async ({ title, description, price }) => {
             if (type === 'Create') {
                 await createProduct({ title, description, price });
-            } 
+            } else if (type === 'Review' && productId) {
+                const updatedFields = { title, description, price }; 
+                await submitReview({ productId, updatedFields });
+            }
         }
     });
+
+    
     const { errors, touched, values, handleChange, handleSubmit, handleBlur } = formik
 
+    // create product
     useEffect(() => {
         if (isCreateSuccess) {
             toast.success("Product created successfully");
@@ -57,7 +72,16 @@ const ProductForm = ({ type, product, productId }: productFormProps) => {
         }
     }, [isCreateSuccess, createError]);
 
-   
+    // Submit Review
+    useEffect(() => {
+        if (isReviewSuccess) {
+            toast.success("Product submitted for review successfully");
+        }
+        if (reviewError) {
+            const errorData = reviewError as any;
+            toast.error(errorData?.data?.message || "Error submitting review for product");
+        }
+    }, [isReviewSuccess, reviewError]);
 
     return (
         <div className='flex-center p-4 rounded-md'>
@@ -134,7 +158,7 @@ const ProductForm = ({ type, product, productId }: productFormProps) => {
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                         disabled={isCreateLoading }
                     >
-                        {type === 'Create' ? 'Create Product' : 'Update Product'}
+                        {type === 'Create' ? 'Create Product' : 'Submit Review'}
                     </button>
                 </div>
             </form>

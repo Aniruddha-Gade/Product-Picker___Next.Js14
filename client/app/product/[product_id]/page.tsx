@@ -6,6 +6,9 @@ import { useSelector } from 'react-redux'
 import SidebarLayout from '../../components/sidebar/SidebarLayout'
 import { toast } from 'sonner';
 import { useGetSingleProductQuery } from '../../redux/features/product/productApi';
+import ProductForm from "../../utils/ProductForm"
+
+
 
 const page = ({ params: { product_id }, }) => {
   const [product, setProduct] = useState({})
@@ -31,17 +34,13 @@ const page = ({ params: { product_id }, }) => {
   return (
     <SidebarLayout userRole={user?.accountType}>
       <div className='min-h-screen flex-col w-full text-black dark:text-white p-5'>
-        {
-          product ?
-            <div>
-              <h2 className="text-xl font-semibold">Title - {product?.title}</h2>
-              <p>description - {product?.description}</p>
-              <p className="font-bold">Price: ${product?.price}</p>
-            </div>
+      <h1 className="text-2xl font-bold mb-6">Product Review</h1>
 
-            : <div>Product not found  </div>
-        }
+        <ProductForm type='Review' product={product} productId={product._id} />
+  
       </div>
+
+
     </SidebarLayout>
   )
 }

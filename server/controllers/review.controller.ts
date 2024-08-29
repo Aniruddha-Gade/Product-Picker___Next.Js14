@@ -13,6 +13,8 @@ export const submitReview = catchAsyncError(async (req: Request, res: Response, 
         const { productId } = req.params;
         const { updatedFields } = req.body;
         const userId = req.user._id;
+        console.log("productId = ",productId )
+        console.log("updatedFields = ",updatedFields )
 
         // Check if the product exists
         const product = await ProductModel.findById(productId);

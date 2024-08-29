@@ -22,9 +22,28 @@ export const reviewApi = apiSlice.injectEndpoints({
         }),
 
 
+        // Submit Review
+        submitReview: builder.mutation({
+            query: ({productId, updatedFields}) => ({
+                url: `/review/submit-review/${productId}`,
+                method: "POST",
+                body:{updatedFields},
+                credentials: "include" as const,
+            }),
+            async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+                try {
+                    const result = await queryFulfilled;
+                    console.log("SUBMIT REVIEW (TEAM-MEMBER) API RESULT => ", result)
+                } catch (error: any) {
+                    console.log("SUBMIT REVIEW (TEAM-MEMBER) API ERROR => ", error)
+                }
+            }
+        }),
+
+
 
     }),
 });
 
 
-export const {  usePendingRequestsQuery } = reviewApi
+export const {  usePendingRequestsQuery ,useSubmitReviewMutation } = reviewApi
