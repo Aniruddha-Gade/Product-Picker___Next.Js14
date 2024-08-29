@@ -144,20 +144,12 @@ export const getAllPendingReviews = catchAsyncError(async (req: Request, res: Re
 
 
 // =========================== GET PROFILE STATS ===========================
-interface AdminStats {
-    approvedReviews: number;
-    rejectedReviews: number;
-    pendingReviews: number;
-    totalReviews: number;
-}
-
-interface TeamMemberStats {
+type ProfileStats = {
+    totalRequests: number;
     approvedRequests: number;
     rejectedRequests: number;
-    totalReviews: number;
+    pendingRequests: number;
 }
-
-type ProfileStats = AdminStats | TeamMemberStats;
 
 
 export const getProfileStats = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
@@ -169,29 +161,29 @@ export const getProfileStats = catchAsyncError(async (req: Request, res: Respons
 
         // Fetch stats for admin
         if (userRole === 'Admin') {
-            const totalReviews = await ReviewModel.countDocuments({ reviewedBy: userId })
-            const approvedReviews = await ReviewModel.countDocuments({ reviewedBy: userId, status: 'approved' })
-            const rejectedReviews = await ReviewModel.countDocuments({ reviewedBy: userId, status: 'rejected' })
-            const pendingReviews = await ReviewModel.countDocuments({ status: 'pending' })
+            const totalRequests = await ReviewModel.countDocuments({ reviewedBy: userId })
+            const approvedRequests = await ReviewModel.countDocuments({ reviewedBy: userId, status: 'approved' })
+            const rejectedRequests = await ReviewModel.countDocuments({ reviewedBy: userId, status: 'rejected' })
+            const pendingRequests = await ReviewModel.countDocuments({ status: 'pending' })
 
             stats = {
-                totalReviews,
-                approvedReviews,
-                rejectedReviews,
-                pendingReviews,
+                totalRequests,
+                approvedRequests,
+                rejectedRequests,
+                pendingRequests,
             };
             // Fetch stats for team member
         } else if (userRole === 'Team member') {
-            const totalReviews = await ReviewModel.countDocuments({ submittedBy: userId })
+            const totalRequests = await ReviewModel.countDocuments({ submittedBy: userId })
             const approvedRequests = await ReviewModel.countDocuments({ submittedBy: userId, status: 'approved' })
             const rejectedRequests = await ReviewModel.countDocuments({ submittedBy: userId, status: 'rejected' })
-            const pendingReviews = await ReviewModel.countDocuments({ submittedBy: userId, status: 'pending' })
+            const pendingRequests = await ReviewModel.countDocuments({ submittedBy: userId, status: 'pending' })
 
             stats = {
-                totalReviews,
+                totalRequests,
                 approvedRequests,
                 rejectedRequests,
-                pendingReviews
+                pendingRequests
             };
         } else {
             return res.status(403).json({ message: 'Unauthorized access' })
