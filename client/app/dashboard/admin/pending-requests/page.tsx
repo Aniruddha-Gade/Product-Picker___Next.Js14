@@ -44,8 +44,10 @@ const PendingRequestPage = () => {
               <LoadingRequestSkeleton />
               <LoadingRequestSkeleton />
             </div>
-          ) : !isLoading && !pendingRequests ? (
-            <div>There are no pending Requests...!</div>
+          ) : !isLoading && pendingRequests.length === 0 ? (
+            <div className='text-3xl p-5 text-center rounded-xl text-black dark:text-white bg-black/10 dark:bg-white/10 '>
+              There are no pending Requests...!
+              </div>
           ) : (
             <ul className="space-y-4">
               {pendingRequests.map((request) => (
