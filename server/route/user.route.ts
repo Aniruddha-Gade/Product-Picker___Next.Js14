@@ -7,9 +7,9 @@ const userRouter = Router()
 userRouter.post('/registration', registerUser)
 userRouter.post('/activate-user', activateUser)
 userRouter.post('/login', loginUser)
-userRouter.get('/logout', isAuthenticated, logoutUser)
+userRouter.get('/logout', updateAccessToken, isAuthenticated, logoutUser)
 userRouter.get('/refresh-token', updateAccessToken)
-userRouter.get('/userinfo', isAuthenticated, getUserInfo)
+userRouter.get('/userinfo', updateAccessToken, isAuthenticated, getUserInfo)
 
 
 
