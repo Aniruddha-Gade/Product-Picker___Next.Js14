@@ -81,20 +81,29 @@ export const getSingleProduct = catchAsyncError(async (req: Request, res: Respon
     try {
 
         const createdBy = req.user?._id;
-        const productId = req.body.id
+        const productId = req.body.id;
 
-        // Find user's products
-        const product = await ProductModel.findById(productId, { createdBy });
+        // find the product by ID
+        const product = await ProductModel.findOne({ _id: productId, createdBy });
+
+        if (!product) {
+            return next(new ErrorHandler("Product not found", 404, "Error while fetching single product"));
+        }
+
+        // Check if the product was created by the logged-in user
+        if (product.createdBy.toString() !== createdBy.toString()) {
+            return next(new ErrorHandler("You are not eligible to access this product", 403, "Error while fetching single product"));
+        }
 
         // send success response
-        res.status(201).json({
+        res.status(200).json({
             success: true,
             product,
             message: "Product found successfully",
         });
 
     } catch (error) {
-        return next(new ErrorHandler(error.message, 400, "Error while creating product"));
+        return next(new ErrorHandler(error.message, 400, "Error while fetching single product"));
     }
 });
 
