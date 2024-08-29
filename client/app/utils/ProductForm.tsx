@@ -8,6 +8,9 @@ import { useSubmitReviewMutation, } from '../redux/features/review/reviewApi';
 import { toast } from 'sonner';
 import { styles } from '../styles/style';
 import AsteriskSymbol from './AsteriskSymbol';
+import {LoadingProductSkeleton} from "./LoadingSkeleton"
+
+
 
 // type
 export interface IProduct {
@@ -32,7 +35,9 @@ const schema = Yup.object().shape({
 const ProductForm = ({ type, product, productId }: productFormProps) => {
 
     if (type === "Review" && !product) {
-        return <div className='text-7xl text-red-500 bg-green-500'>Loading...</div>;
+        return <div className="w-full">
+        <LoadingProductSkeleton />
+      </div>
     }
 
     const [createProduct, { data: createData, isSuccess: isCreateSuccess, error: createError, isLoading: isCreateLoading }] = useCreateProductMutation();
