@@ -79,9 +79,33 @@ export const reviewApi = apiSlice.injectEndpoints({
         }),
 
 
+        // get Profile Stats
+        getProfileStats: builder.query({
+            query: () => ({
+                url: `/review/get-profile-stats`,
+                method: "GET",
+                credentials: "include" as const,
+            }),
+            async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+                try {
+                    const result = await queryFulfilled;
+                    console.log("GET PROFILE STATS API RESULT => ", result)
+                } catch (error: any) {
+                    console.log("GET PROFILE STATS API ERROR => ", error)
+                }
+            }
+        }),
+
+
 
     }),
 });
 
 
-export const {  usePendingRequestsQuery , useSubmitReviewMutation, useGetSingleReviewQuery, useReviewSubmissionMutation } = reviewApi
+export const {  
+    usePendingRequestsQuery ,
+    useSubmitReviewMutation,
+    useGetSingleReviewQuery, 
+    useReviewSubmissionMutation ,
+    useGetProfileStatsQuery ,
+} = reviewApi
