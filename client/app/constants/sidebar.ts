@@ -21,6 +21,13 @@ export const sidebarLinks: SidebarLink[] = [
     roles: [ACCOUNT_TYPE.TEAM_MEMBER, ACCOUNT_TYPE.ADMIN],
   },
   {
+    id: 6,
+    name: "Create Product",
+    path: "/dashboard/create-product",
+    icon: "/assets/icons/create-product-icon.png",
+    roles: [ACCOUNT_TYPE.TEAM_MEMBER, ACCOUNT_TYPE.ADMIN],
+  },
+  {
     id: 2,
     name: "All Products",
     path: "/dashboard/all-products",

@@ -22,7 +22,7 @@ export const createProduct = catchAsyncError(async (req: Request, res: Response,
         const createdBy = req.user?._id;
 
         // Validate required fields
-        if (!title || !description || !images || !price) {
+        if (!title || !description || !price) {
             return next(new ErrorHandler('title, description, images, price are fields required', 400, "Error while creating product"));
         }
 

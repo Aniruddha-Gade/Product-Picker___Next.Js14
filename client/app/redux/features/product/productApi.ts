@@ -40,8 +40,27 @@ export const productApi = apiSlice.injectEndpoints({
         }),
 
 
+        // create Product
+        createProduct: builder.mutation({
+            query: (data) => ({
+                url: "/product/create-product",
+                method: "POST",
+                body: data,
+                credentials: "include" as const,
+            }),
+            async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+                try {
+                    const result = await queryFulfilled;
+                    console.log("CREATE PRODUCT API RESULT => ", result)
+                } catch (error: any) {
+                    console.log("CREATE PRODUCT API ERROR => ", error)
+                }
+            }
+        }),
+
+
     }),
 });
 
 
-export const { useAllProductsQuery, useGetSingleProductQuery } = productApi
+export const { useAllProductsQuery, useGetSingleProductQuery, useCreateProductMutation } = productApi
