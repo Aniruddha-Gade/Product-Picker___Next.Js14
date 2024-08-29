@@ -89,6 +89,31 @@ export const reviewSubmission = catchAsyncError(async (req: Request, res: Respon
 
 
 
+// =========================== GET SINGLE REVIEW ===========================
+export const getSingleReview = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
+    try {
+
+        const { reviewId }= req.params
+
+        // find reviews with 'pending' mark
+        const review = await ReviewModel.findById(reviewId)
+            .populate('submittedBy', 'name email')
+            .populate('reviewedBy', 'name email')
+            .populate('productId', 'title');
+
+
+        return res.status(201).json({
+            message: 'Single review fetched successfully',
+            review
+        });
+    }
+    catch (error) {
+        return next(new ErrorHandler(error.message, 400, "Error while submit review"));
+    }
+});
+
+
+
 // =========================== SUBMIT REVIEW ===========================
 export const getAllPendingReviews = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -112,6 +137,8 @@ export const getAllPendingReviews = catchAsyncError(async (req: Request, res: Re
         return next(new ErrorHandler(error.message, 400, "Error while submit review"));
     }
 });
+
+
 
 
 

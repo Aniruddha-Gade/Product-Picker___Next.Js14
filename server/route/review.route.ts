@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { isAdmin, isAuthenticated, isTeamMember } from "../middleware/auth";
-import { getAllPendingReviews, getProfileStats, reviewSubmission, submitReview } from "../controllers/review.controller";
+import { getAllPendingReviews, getProfileStats, reviewSubmission, submitReview, getSingleReview } from "../controllers/review.controller";
 import { updateAccessToken } from "../controllers/user.controller";
 
 const reviewRouter = Router()
@@ -16,6 +16,7 @@ reviewRouter.post('/submit-review/:productId', updateAccessToken, isAuthenticate
 // only for Admin
 reviewRouter.put('/review-submission/:reviewId', updateAccessToken, isAuthenticated, isAdmin, reviewSubmission)
 reviewRouter.get('/get-pending-reviews', updateAccessToken, isAuthenticated, isAdmin, getAllPendingReviews)
+reviewRouter.get('/get-single-review:reviewId', updateAccessToken, isAuthenticated, isAdmin, getSingleReview)
 
 
 
