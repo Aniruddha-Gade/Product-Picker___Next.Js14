@@ -9,13 +9,6 @@ export interface IProduct {
 
 
 
-export interface IProduct1 {
-    _id: string;
-    title: string;
-    status: 'pending' | 'approved' | 'rejected';
-    description: string;
-}
-
 interface IUpdatedFields {
     title?: string;
     description?: string;
@@ -36,7 +29,7 @@ interface IReviewedBy {
 
 export interface IRequest {
     _id: string;
-    productId: IProduct1;
+    productId: IProduct;
     updatedFields: IUpdatedFields;
     status: string;
     submittedBy: ISubmittedBy;
