@@ -8,7 +8,6 @@ import { useAllProductsQuery } from '../../redux/features/product/productApi';
 import Link from "next/link"
 import { IProduct } from "../../types/type"
 import {LoadingProductSkeleton} from "../../utils/LoadingSkeleton"
-import { IProduct } from "../../types/type"
 
 
 
