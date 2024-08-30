@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import {useState, useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useCreateProductMutation, } from '../redux/features/product/productApi';
@@ -9,7 +9,7 @@ import { toast } from 'sonner';
 import { styles } from '../styles/style';
 import AsteriskSymbol from './AsteriskSymbol';
 import {LoadingProductSkeleton} from "./LoadingSkeleton"
-
+import { FileUploader } from "./FileUploader"
 
 
 // type
@@ -30,6 +30,7 @@ const schema = Yup.object().shape({
     title: Yup.string().required("Please enter the title of the product"),
     description: Yup.string().required("Please enter the description of the product"),
     price: Yup.number().required("Please enter the price of the product"),
+    images: Yup.string().required("Please drop image of the product"),
 });
 
 const ProductForm = ({ type, product, productId }: productFormProps) => {
@@ -43,12 +44,15 @@ const ProductForm = ({ type, product, productId }: productFormProps) => {
     const [createProduct, { data: createData, isSuccess: isCreateSuccess, error: createError, isLoading: isCreateLoading }] = useCreateProductMutation();
     const [submitReview, { data: reviewData, isSuccess: isReviewSuccess, error: reviewError, isLoading: isReviewLoading }] = useSubmitReviewMutation();
 
+    const [files, setFiles] = useState<File[]>([])
+
     // Always render the formik hook, but handle the initial values conditionally
     const formik = useFormik({
         initialValues: {
             title: type === "Review" && product ? product?.title : "",
             description: type === "Review" && product ? product?.description : "",
             price: type === "Review" && product ? product?.price : 0,
+            images: type === "Review" && product ? product?.images : "",
         },
         validationSchema: schema,
         enableReinitialize: true,
@@ -64,7 +68,7 @@ const ProductForm = ({ type, product, productId }: productFormProps) => {
 
 
 
-    const { errors, touched, values, handleChange, handleSubmit, handleBlur } = formik;
+    const { errors, touched, values, handleChange, handleSubmit, handleBlur , setFieldValue } = formik;
 
     // create product
     useEffect(() => {
@@ -86,9 +90,13 @@ const ProductForm = ({ type, product, productId }: productFormProps) => {
     }, [isCreateSuccess, createError, isReviewSuccess, reviewError]);
 
 
+    console.log("values.images = ", values.images)
+    console.log("files = ", files)
+
     return (
-        <div className='flex-center p-4 rounded-md'>
-            <form onSubmit={handleSubmit} className='w-[60%] bg-white/10 p-5 rounded-2xl'>
+        <div className='p-4 rounded-md'>
+            <form onSubmit={handleSubmit} className='flex flex-col md:flex-row items-center gap-7 justify-between w-full  '>
+                <div className="w-[60%] bg-black/5 dark:bg-white/10 p-5 rounded-2xl">
                 <div className="mb-4">
                     <label className={`${styles.label}`} htmlFor="title">
                         Title <AsteriskSymbol />
@@ -161,6 +169,21 @@ const ProductForm = ({ type, product, productId }: productFormProps) => {
                         {type === 'Create' ? 'Create Product' : 'Submit Review'}
                     </button>
                 </div>
+                </div>
+
+{/* Upload images */}
+            {/* <FileUploader
+                                        onFieldChange={handleChange}
+                                        imageUrl={values.images}
+                                        setFiles={setFiles}
+                                    /> */}
+            
+            <FileUploader
+    imageUrl={values.images}
+    setFiles={setFiles}
+    setFieldValue={setFieldValue}
+/>
+            
             </form>
         </div>
     );
