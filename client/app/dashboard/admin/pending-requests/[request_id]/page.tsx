@@ -171,7 +171,7 @@ interface PageParams {
                                         <TableRow>
                                             <TableCell className='flex flex-row gap-4 items-center'>
                                                 <p>Change Status</p>
-                                                <Select value={reviewStatus} onValueChange={handleStatusChange} className="text-black dark:text-white">
+                                                <Select value={reviewStatus} onValueChange={handleStatusChange}>
                                                     <SelectTrigger className="w-[180px]">
                                                         <SelectValue placeholder="Status" />
                                                     </SelectTrigger>

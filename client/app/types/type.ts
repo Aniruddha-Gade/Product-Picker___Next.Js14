@@ -13,6 +13,7 @@ export interface IProduct1 {
     _id: string;
     title: string;
     status: 'pending' | 'approved' | 'rejected';
+    description: string;
 }
 
 interface IUpdatedFields {
@@ -27,12 +28,19 @@ interface ISubmittedBy {
     email: string;
 }
 
+interface IReviewedBy {
+    _id: string;
+    name: string;
+    email: string;
+}
+
 export interface IRequest {
     _id: string;
     productId: IProduct1;
     updatedFields: IUpdatedFields;
     status: string;
     submittedBy: ISubmittedBy;
+    reviewedBy: IReviewedBy;
     __v: number;
 }
 
