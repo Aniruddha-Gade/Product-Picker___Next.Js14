@@ -21,7 +21,7 @@ interface PageParams {
 
 
   const page: React.FC<{ params: PageParams }> = ({ params: { request_id } }) => {
-    const [request, setRequest] = useState<IRequest[]>([]);
+    const [request, setRequest] = useState<IRequest | null>(null);
     const [reviewStatus, setReviewStatus] = useState<string | undefined>();
     const { user } = useSelector((state: any) => state.auth)
     const { data: singleReviewData, isSuccess: singleReviewIsSuccess, error: singleReviewError, isLoading: singleReviewIsLoading } = useGetSingleReviewQuery({ request_id })
@@ -72,7 +72,7 @@ interface PageParams {
                         singleReviewIsLoading ? (<div className="w-full grid grid-cols-1 gap-4">
                             <LoadingRequestSkeleton />
                         </div>
-                        ) : !singleReviewIsLoading && request?.length === 0 ? (
+                        ) : !singleReviewIsLoading && !request ? (
                             <div className='text-3xl p-5 text-center rounded-xl text-black dark:text-white bg-black/10 dark:bg-white/10 '>
                                 There are no pending Requests...!
                             </div>
