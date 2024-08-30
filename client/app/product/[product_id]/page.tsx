@@ -11,7 +11,12 @@ import { ACCOUNT_TYPE } from '../../constants/account-types'
 import { IProduct } from "../../types/type"
 
 
-const page = ({ params: { product_id }, }) => {
+interface PageParams {
+  product_id: string;
+}
+
+
+const page: React.FC<{ params: PageParams }> = ({ params: { product_id } }) => {
   const [product, setProduct] = useState<IProduct>();
   const { user } = useSelector((state: any) => state.auth)
   const { data, isSuccess, error, isLoading } = useGetSingleProductQuery({ product_id })

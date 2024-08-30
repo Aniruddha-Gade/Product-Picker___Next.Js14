@@ -13,7 +13,7 @@ import { IProfileStats } from "../types/type"
 const page = () => {
 
   const { user } = useSelector((state: any) => state.auth)
-  const [profileStats, setProfileStats] = useState<ProfileStats | null>(null);
+  const [profileStats, setProfileStats] = useState<IProfileStats | null>(null);
   const { data, isSuccess, error, isLoading } = useGetProfileStatsQuery({})
 
   console.log("profileStats = ", profileStats)
