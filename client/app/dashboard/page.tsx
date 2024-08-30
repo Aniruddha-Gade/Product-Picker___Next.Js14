@@ -7,12 +7,13 @@ import Image from 'next/image';
 import { toast } from 'sonner';
 import SidebarLayout from '../components/sidebar/SidebarLayout'
 import { useGetProfileStatsQuery } from "../redux/features/review/reviewApi"
+import { IProfileStats } from "../types/type"
 
 
 const page = () => {
 
   const { user } = useSelector((state: any) => state.auth)
-  const [profileStats, setProfileStats] = useState()
+  const [profileStats, setProfileStats] = useState<ProfileStats | null>(null);
   const { data, isSuccess, error, isLoading } = useGetProfileStatsQuery({})
 
   console.log("profileStats = ", profileStats)
@@ -47,7 +48,7 @@ const page = () => {
               </div>
             )
               :
-              !isLoading && profileStats?.length === 0 ? (
+              !isLoading && profileStats ? (
                 <div className='text-3xl p-5 text-center rounded-xl text-black dark:text-white bg-black/10 dark:bg-white/10 '>
                   There is no Profile data...!
                 </div>

@@ -8,6 +8,8 @@ import { useGetMySubmissionsQuery } from '../../../redux/features/review/reviewA
 import Link from "next/link"
 import AdminProtected from '../../../hooks/adminProtected'
 import { LoadingRequestSkeleton } from "../../../utils/LoadingSkeleton"
+import { IRequest } from "../../../types/type"
+
 
 
 const PendingRequestPage = () => {
@@ -44,13 +46,13 @@ const PendingRequestPage = () => {
               <LoadingRequestSkeleton />
               <LoadingRequestSkeleton />
             </div>
-          ) : !isLoading && !mySubmissions?.length ? (
+          ) : !isLoading && !mySubmissions ? (
             <div className='text-3xl p-5 text-center rounded-xl text-black dark:text-white bg-black/10 dark:bg-white/10 '>
               No submissions have been made yet...!
             </div>
           ) : (
             <div className="flex flex-col gap-5">
-              {mySubmissions.map((request, index) => (
+              {mySubmissions.map((request: IRequest, index: number) => (
                 <div
                   className="block p-5 bg-black/5 dark:bg-white/5 shadow-md hover:shadow-lg rounded-xl transition-shadow duration-200"
                 >

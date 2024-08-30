@@ -37,3 +37,12 @@ export interface IRequest {
     __v: number;
 }
 
+
+
+export interface IProfileStats {
+    totalRequests: number;
+    approvedRequests: number;
+    rejectedRequests: number;
+    pendingRequests: number;
+  }
+  

@@ -8,11 +8,12 @@ import { useAllProductsQuery } from '../../redux/features/product/productApi';
 import Link from "next/link"
 import { IProduct } from "../../types/type"
 import {LoadingProductSkeleton} from "../../utils/LoadingSkeleton"
+import { IProduct } from "../../types/type"
 
 
 
 const AllProductsPage = () => {
-  const [products, setProducts] = useState();
+  const [products, setProducts] = useState<IProduct[]>();
   const { user } = useSelector((state: any) => state.auth)
   const { data, isSuccess, error, isLoading } = useAllProductsQuery({})
 
@@ -44,13 +45,13 @@ const AllProductsPage = () => {
               <LoadingProductSkeleton />
               <LoadingProductSkeleton />
             </div>
-          ) : !isLoading && !products?.length ? (
+          ) : !isLoading && !products ? (
             <div className='text-3xl p-5 text-center rounded-xl text-black dark:text-white bg-black/10 dark:bg-white/10 '>
               You havn't created any product...!
               </div>
           ) : (
             <ul className="w-full grid grid-cols-3 gap-4">
-             { products.map((product: IProduct) => (
+             { products &&  products?.map((product: IProduct) => (
               <Link
                 key={product._id}
                 href={`/product/${product._id}`}
