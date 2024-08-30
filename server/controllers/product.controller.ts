@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { catchAsyncError } from "../utils/catchAsyncError";
 import ErrorHandler from "../utils/ErrorHandler";
 import ProductModel from '../models/product.model';
-
+import cloudinary from 'cloudinary';
 
 
 
@@ -10,7 +10,8 @@ import ProductModel from '../models/product.model';
 interface ICreateProductBody {
     title: string;
     description: string;
-    images: string[];
+    image: string;
+    // image: File;
     price: string;
 }
 
@@ -18,21 +19,29 @@ export const createProduct = catchAsyncError(async (req: Request, res: Response,
     try {
 
         // get data
-        const { title, description, images, price } = req.body as ICreateProductBody;
+        const { title, description,  price,  } = req.body as ICreateProductBody;
         const createdBy = req.user?._id;
-
+        // const imageFile = req.files?.image;
+        // console.log("imageFile = ", imageFile);
+ 
         // Validate required fields
-        if (!title || !description || !price) {
-            return next(new ErrorHandler('title, description, images, price are fields required', 400, "Error while creating product"));
+        if (!title || !description || !price ) {
+            return next(new ErrorHandler('title, description, image, price are fields required', 400, "Error while creating product"));
         }
+
+
+        // const uploadedUrl = await cloudinary.v2.uploader.upload(image, {
+        //     folder: "Product Picker/product",
+        // })
 
         // Create a new product
         const product = await ProductModel.create({
             title,
             description,
-            images,
+            // image: uploadedUrl.secure_url,
             price,
-            createdBy
+            createdBy,
+            createdAt:Date.now()
         });
 
         // send success response
@@ -58,7 +67,8 @@ export const getProducts = catchAsyncError(async (req: Request, res: Response, n
         const createdBy = req.user?._id;
 
         // Find user's products
-        const products = await ProductModel.find({ createdBy });
+        const products = await ProductModel.find({ createdBy })
+        .sort({ createdAt: -1 });
 
         // send success response
         res.status(201).json({
@@ -86,7 +96,7 @@ export const getSingleProduct = catchAsyncError(async (req: Request, res: Respon
         // find the product by ID
         const product = await ProductModel.findOne(
             { _id: productId, createdBy }
-        ) .populate('createdBy', 'name email')
+        ).populate('createdBy', 'name email')
 
         if (!product) {
             return next(new ErrorHandler("Product not found", 404, "Error while fetching single product"));

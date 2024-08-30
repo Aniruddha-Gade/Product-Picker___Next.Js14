@@ -3,7 +3,8 @@ import { Schema, model, models } from 'mongoose';
 export interface IProduct {
     title: string;
     description: string;
-    images: string[];
+    // images: string[];
+    images: string;
     price: number;
     status: 'pending' | 'approved' | 'rejected';
     createdBy: Schema.Types.ObjectId;
@@ -19,9 +20,13 @@ const productSchema = new Schema<IProduct>({
         type: String,
         required: true
     },
-    images: {
-        type: [String],
-        required: true
+    // images: {
+    //     type: [String],
+    //     required: true
+    // },
+    image: {
+        type: String,
+        // required: true
     },
     price: {
         type: Number,
@@ -36,6 +41,9 @@ const productSchema = new Schema<IProduct>({
         type: String,
         enum: ['pending', 'approved', 'rejected'],
         default: 'pending'  // New products start as 'pending'
+    },
+    createdAt:{
+type:Date
     }
 
 }, {timeStamps:true});
