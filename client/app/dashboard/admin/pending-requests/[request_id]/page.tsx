@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from 'next/image';
 import { useSelector } from 'react-redux'
 import SidebarLayout from '../../../../components/sidebar/SidebarLayout'
@@ -9,15 +9,19 @@ import { toast } from 'sonner';
 import { useGetSingleReviewQuery, useReviewSubmissionMutation } from '../../../../redux/features/review/reviewApi';
 import { LoadingRequestSkeleton } from "../../../../utils/LoadingSkeleton"
 import { ACCOUNT_TYPE } from '../../../../constants/account-types'
-// import { IProduct } from "../../../../types/type"
+import { IRequest } from "../../../../types/type"
 
 import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow, } from "../../../../components/ui/table"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "../../../../components/ui/select"
 
+interface PageParams {
+    request_id: string;
+  }
+  
 
 
-const page = ({ params: { request_id }, }) => {
-    const [request, setRequest] = useState<IProduct>();
+  const page: React.FC<{ params: PageParams }> = ({ params: { request_id } }) => {
+    const [request, setRequest] = useState<IRequest[]>([]);
     const [reviewStatus, setReviewStatus] = useState<string | undefined>();
     const { user } = useSelector((state: any) => state.auth)
     const { data: singleReviewData, isSuccess: singleReviewIsSuccess, error: singleReviewError, isLoading: singleReviewIsLoading } = useGetSingleReviewQuery({ request_id })
@@ -42,11 +46,11 @@ const page = ({ params: { request_id }, }) => {
 
     useEffect(() => {
         if (request) {
-            setReviewStatus(request.status);
+            setReviewStatus(request?.status);
         }
     }, [request]);
 
-    const handleStatusChange = async (val) => {
+    const handleStatusChange = async (val:string) => {
         setReviewStatus(val)
         await reviewSubmission({ reviewId: request_id, status: val });
     }
