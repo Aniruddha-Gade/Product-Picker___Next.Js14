@@ -12,7 +12,7 @@ import {LoadingProductSkeleton} from "../../utils/LoadingSkeleton"
 
 
 const AllProductsPage = () => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState();
   const { user } = useSelector((state: any) => state.auth)
   const { data, isSuccess, error, isLoading } = useAllProductsQuery({})
 
@@ -21,6 +21,7 @@ const AllProductsPage = () => {
   useEffect(() => {
     if (isSuccess) {
       toast.success("All Products fetched Successfully")
+      // setProducts([...data.products, ...data.products])
       setProducts(data.products)
     }
     if (error) {
@@ -43,8 +44,10 @@ const AllProductsPage = () => {
               <LoadingProductSkeleton />
               <LoadingProductSkeleton />
             </div>
-          ) : !isLoading && !products ? (
-            <div>There are No Products ...!</div>
+          ) : !isLoading && !products?.length ? (
+            <div className='text-3xl p-5 text-center rounded-xl text-black dark:text-white bg-black/10 dark:bg-white/10 '>
+              You havn't created any product...!
+              </div>
           ) : (
             <ul className="w-full grid grid-cols-3 gap-4">
              { products.map((product: IProduct) => (
