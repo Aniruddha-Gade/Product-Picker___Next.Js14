@@ -8,8 +8,9 @@ export interface SidebarLink {
   name: string;
   path: string;
   icon: string;
-  roles: (typeof ACCOUNT_TYPE)[];
+  roles: ACCOUNT_TYPE[];
 }
+
 
 
 export const sidebarLinks: SidebarLink[] = [

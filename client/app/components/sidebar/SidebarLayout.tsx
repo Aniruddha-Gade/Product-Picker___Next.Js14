@@ -24,7 +24,8 @@ const Layout = ({ children, userRole }: LayoutProps) => {
   const [activeItem, setActiveItem] = useState(0)
   const [route, setRoute] = useState("")
 
-  const filteredLinks = sidebarLinks.filter((link: SidebarLink) => link.roles.includes(userRole))
+  const filteredLinks = sidebarLinks.filter((link: SidebarLink) => link.roles.includes(userRole as ACCOUNT_TYPE));
+
   // console.log("filteredLinks =", filteredLinks)
 
 
