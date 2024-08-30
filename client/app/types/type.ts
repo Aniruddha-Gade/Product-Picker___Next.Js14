@@ -4,6 +4,10 @@ export interface IProduct {
     description: string;
     price: number;
     status: 'pending' | 'approved' | 'rejected';
+    createdBy:{
+        name:string;
+        email:string;
+    }
 }
 
 

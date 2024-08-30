@@ -10,17 +10,10 @@ import { styles } from '../styles/style';
 import AsteriskSymbol from './AsteriskSymbol';
 import {LoadingProductSkeleton} from "./LoadingSkeleton"
 import  FileUploader  from "./FileUploader"
+import { IProduct } from "../types/type"
 
 
 // type
-export interface IProduct {
-    _id: string;
-    title: string;
-    price: number;
-    description: string;
-    image:string
-}
-
 type productFormProps = {
     type: 'Create' | 'Review',
     product?: IProduct,
@@ -183,18 +176,14 @@ const ProductForm = ({ type, product, productId }: productFormProps) => {
                 </div>
                 </div>
 
-{/* Upload images */}
-            {/* <FileUploader
-                                        onFieldChange={handleChange}
-                                        imageUrl={values.images}
-                                        setFiles={setFiles}
-                                    /> */}
+            {/* Upload images */}
+
             
-            <FileUploader
-    imageUrl={values.image}
-    setFiles={setFiles}
-    setFieldValue={setFieldValue}
-/>
+            {/* <FileUploader
+                imageUrl={values.image}
+                setFiles={setFiles}
+                setFieldValue={setFieldValue}
+            /> */}
             
             </form>
         </div>
