@@ -9,7 +9,7 @@ import { toast } from 'sonner';
 import { styles } from '../styles/style';
 import AsteriskSymbol from './AsteriskSymbol';
 import {LoadingProductSkeleton} from "./LoadingSkeleton"
-import { FileUploader } from "./FileUploader"
+import  FileUploader  from "./FileUploader"
 
 
 // type
@@ -18,6 +18,7 @@ export interface IProduct {
     title: string;
     price: number;
     description: string;
+    image:string
 }
 
 type productFormProps = {
@@ -30,7 +31,7 @@ const schema = Yup.object().shape({
     title: Yup.string().required("Please enter the title of the product"),
     description: Yup.string().required("Please enter the description of the product"),
     price: Yup.number().required("Please enter the price of the product"),
-    images: Yup.string().required("Please drop image of the product"),
+    // image: Yup.string().required("Please drop image of the product"),
 });
 
 const ProductForm = ({ type, product, productId }: productFormProps) => {
@@ -52,13 +53,24 @@ const ProductForm = ({ type, product, productId }: productFormProps) => {
             title: type === "Review" && product ? product?.title : "",
             description: type === "Review" && product ? product?.description : "",
             price: type === "Review" && product ? product?.price : 0,
-            images: type === "Review" && product ? product?.images : "",
+            // image: type === "Review" && product ? product?.image : "",
         },
         validationSchema: schema,
         enableReinitialize: true,
-        onSubmit: async ({ title, description, price }) => {
+        onSubmit: async ({ title, description, price,  }) => {
             if (type === 'Create') {
-                await createProduct({ title, description, price });
+                // console.log("inside image = ", image)
+                console.log("inside title = ", title)
+               
+                // const formData = new FormData();
+                // formData.append('title', title);
+                // formData.append('description', description);
+                // formData.append('price', price.toString());
+                // formData.append('image', image);
+                // await createProduct(formData);
+
+                await createProduct({ title, description, price,  });
+              
             } else if (type === 'Review' && productId) {
                 const updatedFields = { title, description, price };
                 await submitReview({ productId, updatedFields });
@@ -90,8 +102,8 @@ const ProductForm = ({ type, product, productId }: productFormProps) => {
     }, [isCreateSuccess, createError, isReviewSuccess, reviewError]);
 
 
-    console.log("values.images = ", values.images)
-    console.log("files = ", files)
+    // console.log("values.image = ", values.image)
+    // console.log("files = ", files)
 
     return (
         <div className='p-4 rounded-md'>
@@ -179,7 +191,7 @@ const ProductForm = ({ type, product, productId }: productFormProps) => {
                                     /> */}
             
             <FileUploader
-    imageUrl={values.images}
+    imageUrl={values.image}
     setFiles={setFiles}
     setFieldValue={setFieldValue}
 />

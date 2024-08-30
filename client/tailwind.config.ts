@@ -20,7 +20,6 @@ const config: Config = {
       fontFamily: {
         Poppins: ['var(--font-Poppins)'],
         Josefin: ['var(--font-Josefin)'],
-
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -34,32 +33,29 @@ const config: Config = {
         '1500px': '1500px',
         '800px': '800px',
         '400px': '400px',
-
-
-
-        keyframes: {
-          "accordion-down": {
-            from: { height: "0" },
-            to: { height: "var(--radix-accordion-content-height)" },
-          },
-          "accordion-up": {
-            from: { height: "var(--radix-accordion-content-height)" },
-            to: { height: "0" },
-          },
-          "caret-blink": {
-            "0%,70%,100%": { opacity: "1" },
-            "20%,50%": { opacity: "0" },
-          },
+      },
+      keyframes: {
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
-        animation: {
-          "accordion-down": "accordion-down 0.2s ease-out",
-          "accordion-up": "accordion-up 0.2s ease-out",
-          "caret-blink": "caret-blink 1.25s ease-out infinite",
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+        "caret-blink": {
+          "0%,70%,100%": { opacity: "1" },
+          "20%,50%": { opacity: "0" },
         },
       },
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
+        "caret-blink": "caret-blink 1.25s ease-out infinite",
+      },
     },
-    plugins: [require("tailwindcss-animate")],
-  }
-
+  },
+  plugins: [require("tailwindcss-animate")],
 }
+
 export default config;
