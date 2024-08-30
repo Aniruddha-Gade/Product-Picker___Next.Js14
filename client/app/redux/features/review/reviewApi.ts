@@ -97,7 +97,22 @@ export const reviewApi = apiSlice.injectEndpoints({
         }),
 
 
-
+ // get My Submissions (Team member)
+ getMySubmissions: builder.query({
+    query: ({request_id:reviewId}) => ({
+        url: "/review/my-submissions",
+        method: "GET",
+        credentials: "include" as const,
+    }),
+    async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+            const result = await queryFulfilled;
+            console.log("GET MY ALL SUBMISSIONS (TEAM MEMBER) API RESULT => ", result)
+        } catch (error: any) {
+            console.log("GET MY ALL SUBMISSIONS (TEAM MEMBER) API ERROR => ", error)
+        }
+    }
+}),
     }),
 });
 
@@ -108,4 +123,5 @@ export const {
     useGetSingleReviewQuery, 
     useReviewSubmissionMutation ,
     useGetProfileStatsQuery ,
+    useGetMySubmissionsQuery ,
 } = reviewApi

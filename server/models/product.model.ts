@@ -38,7 +38,7 @@ const productSchema = new Schema<IProduct>({
         default: 'pending'  // New products start as 'pending'
     }
 
-});
+}, {timeStamps:true});
 
 
 

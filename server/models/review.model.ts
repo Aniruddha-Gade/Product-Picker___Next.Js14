@@ -35,7 +35,7 @@ const reviewSchema = new Schema<IReview>({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-});
+}, {timeStamps:true});
 
 
 const ReviewModel = models.Review || model<IReview>('Review', reviewSchema);
