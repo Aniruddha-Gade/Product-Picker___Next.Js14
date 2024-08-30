@@ -34,7 +34,7 @@ const PendingRequestPage = () => {
     <SidebarLayout userRole={user?.accountType}>
       <AdminProtected>
         <div className='min-h-screen flex-col w-full text-black dark:text-white p-5'>
-          <h1 className="text-2xl font-bold mb-6">All Pending Requests</h1>
+          <h1 className="text-2xl font-bold mb-6">All Pending Requests : {pendingRequests?.length} </h1>
 
 
           {

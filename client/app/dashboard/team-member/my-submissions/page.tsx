@@ -7,7 +7,7 @@ import SidebarLayout from '../../../components/sidebar/SidebarLayout'
 import { useGetMySubmissionsQuery } from '../../../redux/features/review/reviewApi';
 import Link from "next/link"
 import AdminProtected from '../../../hooks/adminProtected'
-import {LoadingRequestSkeleton} from "../../../utils/LoadingSkeleton"
+import { LoadingRequestSkeleton } from "../../../utils/LoadingSkeleton"
 
 
 const PendingRequestPage = () => {
@@ -16,7 +16,7 @@ const PendingRequestPage = () => {
   const { data, isSuccess, error, isLoading } = useGetMySubmissionsQuery({})
 
 
-console.log('mySubmissions = ', mySubmissions)
+  console.log('mySubmissions = ', mySubmissions)
   useEffect(() => {
     if (isSuccess) {
       toast.success("All pending requests fetched Successfully")
@@ -32,12 +32,12 @@ console.log('mySubmissions = ', mySubmissions)
 
   return (
     <SidebarLayout userRole={user?.accountType}>
-     
-        <div className='min-h-screen flex-col w-full text-black dark:text-white p-5'>
-          <h1 className="text-2xl font-bold mb-6">My Submissions</h1>
+
+      <div className='min-h-screen flex-col w-full text-black dark:text-white p-5'>
+        <h1 className="text-2xl font-bold mb-6">My Submissions : {mySubmissions?.length}</h1>
 
 
-          {
+        {
           isLoading ? (
             <div className="w-full grid grid-cols-1 gap-4">
               <LoadingRequestSkeleton />
@@ -46,53 +46,83 @@ console.log('mySubmissions = ', mySubmissions)
             </div>
           ) : !isLoading && !mySubmissions?.length ? (
             <div className='text-3xl p-5 text-center rounded-xl text-black dark:text-white bg-black/10 dark:bg-white/10 '>
-            No submissions have been made yet...!
-              </div>
+              No submissions have been made yet...!
+            </div>
           ) : (
-            <ul className="space-y-4">
-              {mySubmissions.map((request) => (
+            <div className="flex flex-col gap-5">
+              {mySubmissions.map((request, index) => (
                 <div
-                  className="block p-5 bg-white dark:bg-gray-800 shadow-md hover:shadow-lg rounded-lg transition-shadow duration-300"
+                  className="block p-5 bg-black/5 dark:bg-white/5 shadow-md hover:shadow-lg rounded-xl transition-shadow duration-200"
                 >
-                  <li className="flex flex-col md:flex-row justify-between items-start md:items-center">
-                    <div className="mb-4 md:mb-0">
-                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                        {request?.productId?.title}
-                      </h3>
-                      <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
-                        {request?.productId?.description}
-                      </h3>
-                      
+                  <div className="flex flex-col justify-between gap-8 relative">
+                    <div className='absolute flex-center top-2 right-1 bg-green-600 w-10 h-10 p-3 rounded-full '>
+                      <p className='text-black dark:text-white font-bold text-xl'>{index+1}</p>
                     </div>
-
-                    <div className='flex gap-5 items-center '>
-                      <div>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">
-                          Reviewed by: <span className="font-medium text-gray-800 dark:text-gray-200">{request.reviewedBy?.name || 'Not yet reviewed'}</span>
-                        </p>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">
-                          Email: <span className="font-medium text-gray-800 dark:text-gray-200">{request.reviewedBy?.email || 'Not yet reviewed'}</span>
-                        </p>
+                    <div className="mb-4 flex flex-col gap-3 p-3 rounded-lg bg-black/10 dark:bg-white/10">
+                      <p>Original Product</p>
+                      <div className="text-lg font-semibold text-gray-900 dark:text-white">
+                        <p>Title :</p>
+                        <span className='text-gray-900 dark:text-white/70'>{request?.productId?.title}</span>
                       </div>
 
-                      <div className="flex items-center space-x-2">
+                      <div className="text-lg font-semibold text-gray-900 dark:text-white">
+                        <p>Description :</p>
+                        <span className='text-gray-900 text-sm dark:text-white/70'>{request?.productId?.description}</span>
+                      </div>
+
+                      <div className="text-lg font-semibold text-gray-900 dark:text-white">
+                        <p>Price :</p>
+                        <span className='text-gray-900 text-sm dark:text-white/70'>{request?.productId?.price}</span>
+                      </div>
+                    </div>
+
+                    <div className='flex flex-col gap-5 '>
+                      <div>
+                        <div className="text-lg font-semibold text-gray-900 dark:text-white">
+                          <p> Reviewed by :</p>
+                          <span className='text-gray-900 text-sm text-md dark:text-white/70'>{request.reviewedBy?.name || 'Not yet reviewed'}</span>
+                        </div>
+                        <div className="text-lg font-semibold text-gray-900 dark:text-white">
+                          {request.reviewedBy?.email &&
+                            <>
+                              <p>Email :</p>
+                              <span className='text-gray-900 text-sm text-md dark:text-white/70'>{request.reviewedBy?.email || ''}</span>
+                            </>
+                          }
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Requested To update product details */}
+                    <div className="">
+                        <h3 className='text-xl font-semibold'>Requested To update product details</h3>
+                        {Object.entries(request?.updatedFields).map(([key, value]) => (
+                          <div key={key} className="mb-4">
+                            <h3 className="text-lg font-semibold text-gray-900 dark:text-white capitalize">{key.replace(/_/g, ' ')}</h3>
+                            <p className="text-gray-900 text-sm dark:text-white/70">{value}</p>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* status */}
+                      <div className="flex items-center gap-2">
+                        Status :
                         <span className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${request.status === 'pending'
-                            ? 'bg-yellow-200 text-yellow-800'
-                            : request.status === 'approved'
-                              ? 'bg-green-200 text-green-800'
-                              : 'bg-red-200 text-red-800'
+                          ? 'bg-yellow-200 text-yellow-800'
+                          : request.status === 'approved'
+                            ? 'bg-green-200 text-green-800'
+                            : 'bg-red-200 text-red-800'
                           }`}>
                           {request.status}
                         </span>
                       </div>
-                    </div>
-                  </li>
+                  </div>
                 </div>
               ))}
-            </ul>
+            </div>
           )
         }
-        </div>
+      </div>
     </SidebarLayout>
   );
 };
