@@ -13,8 +13,8 @@ export const submitReview = catchAsyncError(async (req: Request, res: Response, 
         const { productId } = req.params;
         const { updatedFields } = req.body;
         const userId = req.user._id;
-        console.log("productId = ",productId )
-        console.log("updatedFields = ",updatedFields )
+        console.log("productId = ", productId)
+        console.log("updatedFields = ", updatedFields)
 
         // Check if the product exists
         const product = await ProductModel.findById(productId);
@@ -93,7 +93,7 @@ export const reviewSubmission = catchAsyncError(async (req: Request, res: Respon
 export const getSingleReview = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
     try {
 
-        const { reviewId }= req.params
+        const { reviewId } = req.params
 
         // find reviews with 'pending' mark
         const review = await ReviewModel.findById(reviewId)
@@ -198,5 +198,32 @@ export const getProfileStats = catchAsyncError(async (req: Request, res: Respons
     }
     catch (error) {
         return next(new ErrorHandler(error.message, 400, "Error while submit review"));
+    }
+});
+
+
+
+
+// =========================== MY SUBMISSION (TEAM MEMBER) ===========================
+export const mySubmissions = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
+    try {
+
+        const userId = req.user._id
+
+        // find reviews with 'pending' mark
+        const allSubmissions = await ReviewModel.find({
+            submittedBy: userId
+        })
+        .populate('reviewedBy', 'name email')
+        .populate('productId', 'title description')
+        .sort({ createdAt: -1 }); // Sorting in descending order of creation time
+
+        return res.status(201).json({
+            message: 'All submissions of team member fetched successfully',
+            allSubmissions
+        });
+    }
+    catch (error) {
+        return next(new ErrorHandler(error.message, 400, "Error while fetching all submissions of team member"));
     }
 });
