@@ -8,7 +8,7 @@ export interface SidebarLink {
   name: string;
   path: string;
   icon: string;
-  roles: ACCOUNT_TYPE[];
+  roles: (typeof ACCOUNT_TYPE)[];
 }
 
 
