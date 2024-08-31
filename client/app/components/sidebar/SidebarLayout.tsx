@@ -53,7 +53,7 @@ const Layout = ({ children, userRole }: LayoutProps) => {
       </main>
 
       <div className="flex">
-        <aside className="w-80 p-1 bg-white/25 dark:bg-black/15 text-black dark:text-white ">
+        <aside className="w-80 p-1 bg-white/25 dark:bg-black/15 text-black dark:text-white border-r border-black/30 dark:border-white/20 ">
           <ul className='flex flex-col items-center'>
             {filteredLinks.map((link: SidebarLink) => (
               <Link
