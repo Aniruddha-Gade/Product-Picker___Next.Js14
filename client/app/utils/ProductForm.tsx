@@ -48,7 +48,7 @@ const ProductForm = ({ type, product, productId }: productFormProps) => {
             title: type === 'Review' && product ? product.title : '',
             description: type === 'Review' && product ? product.description : '',
             price: type === 'Review' && product ? product.price : "",
-            files: '',
+            files: type === 'Review' && product ? product.image : "",
         },
         validationSchema: schema,
         enableReinitialize: true,
@@ -66,7 +66,7 @@ const ProductForm = ({ type, product, productId }: productFormProps) => {
             }
 
             else if (type === 'Review' && productId) {
-                const { title, description, price } = formik.values;
+                const { title, description, price, files:imageFile } = formik.values;
 
                 // Initialize an empty object to store updated fields
                 const updatedFields: { [key: string]: any } = {};
@@ -81,6 +81,11 @@ const ProductForm = ({ type, product, productId }: productFormProps) => {
                 if (price !== formik.initialValues.price) {
                     updatedFields.price = price;
                 }
+                // if (product?.image !== files) {
+                //     updatedFields.image = files;
+                // }
+                // console.log("product?.files = ", product?.image)
+                // console.log("files = ", files)
 
                 // Send the updatedFields object only if it contains any updates
                 if (Object.keys(updatedFields).length > 0) {
@@ -202,7 +207,7 @@ const ProductForm = ({ type, product, productId }: productFormProps) => {
                 {/* Upload images */}
                 <div className='flex  flex-col'>
                     <FileUploader
-                        imageUrl={values.files}
+                        imageUrl={product?.image || ""}
                         setFiles={setFiles}
                         setFieldValue={setFieldValue}
                     />

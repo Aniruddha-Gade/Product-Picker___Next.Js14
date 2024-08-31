@@ -13,7 +13,7 @@ export default function FileUploader({ imageUrl, setFiles, setFieldValue }: File
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [previewSource, setPreviewSource] = useState<string>("");
     const inputRef = useRef<HTMLInputElement | null>(null);
-
+console.log("imageUrl = ", imageUrl)
     const onDrop = (acceptedFiles: File[]) => {
         const file = acceptedFiles[0];
         if (file) {
@@ -41,7 +41,10 @@ export default function FileUploader({ imageUrl, setFiles, setFieldValue }: File
 
     useEffect(() => {
         setFieldValue("image", selectedFile); // Ensure the file is set in Formik
-    }, [selectedFile, setFieldValue]);
+        if(imageUrl){
+            setPreviewSource(imageUrl)
+        }
+    }, [selectedFile, setFieldValue, imageUrl ]);
 
     return (
         <div className="flex flex-col space-y-2 w-[26rem] ">
