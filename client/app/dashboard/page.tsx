@@ -48,8 +48,8 @@ const page = () => {
               </div>
             )
               :
-              !isLoading && profileStats ? (
-                <div className='text-3xl p-5 text-center rounded-xl text-black dark:text-white bg-black/10 dark:bg-white/10 '>
+              !isLoading && !profileStats ? (
+                <div className='text-3xl mt-5 p-5 text-center rounded-xl text-black dark:text-white bg-black/10 dark:bg-white/10 '>
                   There is no Profile data...!
                 </div>
               )

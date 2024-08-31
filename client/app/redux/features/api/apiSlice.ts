@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { userLoggedIn, userRegistration } from '../auth/authSlice';
-
+// import { RootState } from "../../store";
 
 export const apiSlice = createApi({
     reducerPath: 'api',
@@ -35,7 +35,8 @@ export const apiSlice = createApi({
             async onQueryStarted(arg, { queryFulfilled, dispatch, getState }) {
                 try {
                     const result = await queryFulfilled;
-                    const currentToken = getState().auth.token;
+                    // const currentToken = (getState() as RootState).auth.token;
+                    const currentToken = localStorage.getItem("token") || "";
                     console.log("USER INFO API RESULT => ", result)
                     dispatch(
                         userLoggedIn({
