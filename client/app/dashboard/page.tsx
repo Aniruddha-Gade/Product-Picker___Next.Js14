@@ -36,25 +36,29 @@ const page = () => {
 
       <SidebarLayout userRole={user?.accountType}>
         <div className='min-h-screen flex-center flex-col w-full text-black dark:text-white'>
-          <h3 className='text-center text-5xl font-semibold'>
+          <h3 className='text-center text-5xl font-semibold mb-5 '>
             This is a <span className='text-green-600 font-semibold'>{user?.accountType}</span> Dashboard Page
           </h3>
 
 
           {
-            isLoading ? (
-              <div>
+            !isLoading ? (
+              <div className='flex gap-5 justify-between bg-gray-800 p-4 rounded-2xl '>
+                <div className="h-[150px] w-[150px] rounded-2xl skeleton"></div>
+                <div className="h-[150px] w-[150px] rounded-2xl skeleton"></div>
+                <div className="h-[150px] w-[150px] rounded-2xl skeleton"></div>
+                <div className="h-[150px] w-[150px] rounded-2xl skeleton"></div>
 
               </div>
             )
               :
               !isLoading && !profileStats ? (
-                <div className='text-3xl mt-5 p-5 text-center rounded-xl text-black dark:text-white bg-black/10 dark:bg-white/10 '>
+                <div className='text-3xl p-5 text-center rounded-xl text-black dark:text-white bg-black/10 dark:bg-white/10 '>
                   There is no Profile data...!
                 </div>
               )
                 :
-                <div className="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                   <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md">
                     <div className="flex-center flex-col gap-4">
                       <div className='bg-black/10 dark:bg-white/10 p-3 rounded-full'>

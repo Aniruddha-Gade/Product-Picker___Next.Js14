@@ -57,7 +57,7 @@ const PendingRequestPage = () => {
                   className="block p-5 bg-black/5 dark:bg-white/5 shadow-md hover:shadow-lg rounded-xl transition-shadow duration-200"
                 >
                   <div className="flex flex-col justify-between gap-8 relative">
-                    <div className='absolute flex-center top-2 right-1 bg-green-600 w-10 h-10 p-3 rounded-full '>
+                    <div className='absolute flex-center -top-2 -right-2 bg-green-600 w-10 h-10 p-3 rounded-full '>
                       <p className='text-black dark:text-white font-bold text-xl'>{index+1}</p>
                     </div>
                     <div className="mb-4 flex flex-col gap-3 p-3 rounded-lg bg-black/10 dark:bg-white/10">

@@ -7,7 +7,8 @@ export interface IProduct {
     createdBy:{
         name:string;
         email:string;
-    }
+    };
+    image?:string
 }
 
 
