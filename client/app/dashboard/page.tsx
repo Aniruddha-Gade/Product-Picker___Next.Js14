@@ -42,7 +42,7 @@ const page = () => {
 
 
           {
-            !isLoading ? (
+            isLoading ? (
               <div className='flex gap-5 justify-between bg-gray-800 p-4 rounded-2xl '>
                 <div className="h-[150px] w-[150px] rounded-2xl skeleton"></div>
                 <div className="h-[150px] w-[150px] rounded-2xl skeleton"></div>
