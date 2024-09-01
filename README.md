@@ -114,8 +114,8 @@ Contributions are welcome! Please feel free to submit a pull request or open an 
 
 ### Total, Aprroved, Pending and Rejected Request 📊
 <img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/Request-stats-light.png' />
-<img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/Request-stats-dark.png' />
 <img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/Request-stats-dark2.png' />
+<img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/Request-stats-dark.png' />
 <img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/profile-stats-dark.png' />
 
 ### Creatd Product Page 📊
