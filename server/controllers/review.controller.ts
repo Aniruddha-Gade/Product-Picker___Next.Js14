@@ -27,6 +27,7 @@ export const submitReview = catchAsyncError(async (req: Request, res: Response, 
             productId: product._id,
             updatedFields,
             submittedBy: userId,
+            createdAt: Date.now(),
             // status: 'pending'
         });
 
@@ -75,6 +76,8 @@ export const reviewSubmission = catchAsyncError(async (req: Request, res: Respon
 
         review.status = status;
         review.reviewedBy = adminId;
+        review.updatedAt = Date.now();
+
         await review.save();
 
         return res.status(200).json({
@@ -99,7 +102,7 @@ export const getSingleReview = catchAsyncError(async (req: Request, res: Respons
         const review = await ReviewModel.findById(reviewId)
             .populate('submittedBy', 'name email')
             .populate('reviewedBy', 'name email')
-            .populate('productId', 'title description price');
+            .populate('productId', 'title description price image');
 
 
         return res.status(201).json({
@@ -124,7 +127,8 @@ export const getAllPendingReviews = catchAsyncError(async (req: Request, res: Re
         })
             .populate('submittedBy', 'name email')
             .populate('reviewedBy', 'name email')
-            .populate('productId', 'title');
+            .populate('productId', 'title')
+            .sort({ createdAt: -1 }); // Sorting in descending order of creation time
 
 
 
@@ -214,8 +218,8 @@ export const mySubmissions = catchAsyncError(async (req: Request, res: Response,
         const allSubmissions = await ReviewModel.find({
             submittedBy: userId
         })
-        .populate('reviewedBy', 'name email')
-        .populate('productId', 'title description price')
+        .populate('reviewedBy', 'name email createdAt updatedAt')
+        .populate('productId', 'title description price createdAt')
         .sort({ createdAt: -1 }); // Sorting in descending order of creation time
 
         return res.status(201).json({

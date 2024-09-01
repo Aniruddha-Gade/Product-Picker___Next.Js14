@@ -197,7 +197,7 @@ export const loginUser = catchAsyncError(async (req: Request, res: Response, nex
         sendToken(user, 200, res)
 
 
-    } catch (error) {
+    } catch (error:any) {
         return next(new ErrorHandler(error.message, 400, "Error while loging user"));
     }
 })
@@ -223,7 +223,7 @@ export const logoutUser = catchAsyncError(async (req: Request, res: Response, ne
             message: "User logout successfully"
         });
 
-    } catch (error) {
+    } catch (error:any) {
         return next(new ErrorHandler(error.message, 400, "Error while logout user"));
     }
 })
@@ -234,7 +234,7 @@ export const logoutUser = catchAsyncError(async (req: Request, res: Response, ne
 
 
 
-// =========================== LOGOUT USER ===========================
+// =========================== UPDATE ACCCESS TOKEN ===========================
 export const updateAccessToken = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
     try {
         const refresh_token = req.cookies.refresh_token as string;
@@ -280,10 +280,10 @@ export const updateAccessToken = catchAsyncError(async (req: Request, res: Respo
 
         // store in redis with 7 days expiry time
         await redis.set(user._id, JSON.stringify(user), "EX", 604800) // 7 days
-
+        console.log("calling refresh token middleware")
         next()
 
-    } catch (error) {
+    } catch (error:any) {
         return next(new ErrorHandler(error.message, 400, "Error while updating access token"));
     }
 })
@@ -308,7 +308,7 @@ export const getUserInfo = catchAsyncError(async (req: Request, res: Response, n
             })
         }
 
-    } catch (error) {
+    } catch (error:any) {
         return next(new ErrorHandler(error.message, 400, "Error while fetching userInfo"));
     }
 })

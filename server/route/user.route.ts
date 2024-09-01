@@ -8,7 +8,13 @@ userRouter.post('/registration', registerUser)
 userRouter.post('/activate-user', activateUser)
 userRouter.post('/login', loginUser)
 userRouter.get('/logout', updateAccessToken, isAuthenticated, logoutUser)
-userRouter.get('/refresh-token', updateAccessToken)
+// userRouter.get('/refresh-token', updateAccessToken)
+userRouter.get('/refresh-token', (req, res, next) => {
+    updateAccessToken(req, res, next)
+    res.status(201).json({
+        message: "Refreshed Token successfully"
+    })
+})
 userRouter.get('/userinfo', updateAccessToken, isAuthenticated, getUserInfo)
 
 

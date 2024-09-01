@@ -35,6 +35,12 @@ const reviewSchema = new Schema<IReview>({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
+    createdAt:{
+        type:Date
+    },
+    updatedAt:{
+        type:Date
+    }
 }, {timeStamps:true});
 
 

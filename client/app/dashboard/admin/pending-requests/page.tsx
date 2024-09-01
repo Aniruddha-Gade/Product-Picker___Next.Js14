@@ -9,7 +9,7 @@ import Link from "next/link"
 import AdminProtected from '../../../hooks/adminProtected'
 import {LoadingRequestSkeleton} from "../../../utils/LoadingSkeleton"
 import { IRequest } from "../../../types/type"
-
+import {formatDate} from '../../../../lib/formatDate'
 
 const PendingRequestPage = () => {
   const [pendingRequests, setPendingRequests] = useState([]);
@@ -77,6 +77,12 @@ const PendingRequestPage = () => {
                         </p>
                         <p className="text-sm text-gray-600 dark:text-gray-400">
                           Email: <span className="font-medium text-gray-800 dark:text-gray-200">{request.reviewedBy?.email || 'Not yet reviewed'}</span>
+                        </p>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                          Date: 
+                            <span className="font-medium text-gray-800 dark:text-gray-200">
+                              {request?.createdAt ? formatDate(request?.createdAt) : 'Not yet reviewed'}
+                           </span>
                         </p>
                       </div>
 

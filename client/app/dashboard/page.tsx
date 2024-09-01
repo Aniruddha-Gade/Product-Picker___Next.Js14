@@ -16,7 +16,7 @@ const page = () => {
   const [profileStats, setProfileStats] = useState<IProfileStats | null>(null);
   const { data, isSuccess, error, isLoading } = useGetProfileStatsQuery({})
 
-  console.log("profileStats = ", profileStats)
+  // console.log("profileStats = ", profileStats)
 
   useEffect(() => {
     if (isSuccess) {

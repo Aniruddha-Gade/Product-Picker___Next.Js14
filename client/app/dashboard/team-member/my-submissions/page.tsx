@@ -18,7 +18,7 @@ const PendingRequestPage = () => {
   const { data, isSuccess, error, isLoading } = useGetMySubmissionsQuery({})
 
 
-  console.log('mySubmissions = ', mySubmissions)
+  // console.log('mySubmissions = ', mySubmissions)
   useEffect(() => {
     if (isSuccess) {
       toast.success("All pending requests fetched Successfully")
@@ -54,11 +54,12 @@ const PendingRequestPage = () => {
             <div className="flex flex-col gap-5">
               {mySubmissions.map((request: IRequest, index: number) => (
                 <div
+                  key={request._id}
                   className="block p-5 bg-black/5 dark:bg-white/5 shadow-md hover:shadow-lg rounded-xl transition-shadow duration-200"
                 >
                   <div className="flex flex-col justify-between gap-8 relative">
                     <div className='absolute flex-center -top-2 -right-2 bg-green-600 w-10 h-10 p-3 rounded-full '>
-                      <p className='text-black dark:text-white font-bold text-xl'>{index+1}</p>
+                      <p className='text-black dark:text-white font-bold text-xl'>{index + 1}</p>
                     </div>
                     <div className="mb-4 flex flex-col gap-3 p-3 rounded-lg bg-black/10 dark:bg-white/10">
                       <p>Original Product</p>
@@ -76,6 +77,12 @@ const PendingRequestPage = () => {
                         <p>Price :</p>
                         <span className='text-gray-900 text-sm dark:text-white/70'>{request?.productId?.price}</span>
                       </div>
+                      <div className="text-sm text-gray-600 dark:text-gray-400">
+                        <p>Product Created Date:</p>
+                        <span className="font-medium text-gray-800 dark:text-gray-200">
+                          {request?.productId?.createdAt ? formatDate(request?.productId?.createdAt) : 'Date not available'}
+                        </span>
+                      </div>
                     </div>
 
                     <div className='flex flex-col gap-5 '>
@@ -92,32 +99,62 @@ const PendingRequestPage = () => {
                             </>
                           }
                         </div>
+                        <div className="text-sm text-gray-600 dark:text-gray-400">
+                          <p>Review checked Date:</p>
+                          <span className="font-medium text-gray-800 dark:text-gray-200">
+                            {request?.updatedAt ? formatDate(request?.updatedAt) : 'Date not available'}
+                          </span>
+                        </div>
                       </div>
                     </div>
 
                     {/* Requested To update product details */}
                     <div className="">
-                        <h3 className='text-xl font-semibold'>Requested To update product details</h3>
+                      {/* <h3 className='text-xl font-semibold'>Requested To update product details</h3>
                         {Object.entries(request?.updatedFields).map(([key, value]) => (
                           <div key={key} className="mb-4">
                             <h3 className="text-lg font-semibold text-gray-900 dark:text-white capitalize">{key.replace(/_/g, ' ')}</h3>
                             <p className="text-gray-900 text-sm dark:text-white/70">{value}</p>
                           </div>
-                        ))}
-                      </div>
+                        ))} */}
+                      <h3 className='text-xl font-semibold'>Requested To update product details</h3>
+                      {Object.entries(request?.updatedFields).map(([key, value]) => (
+                        <div key={key} className="mb-4">
+                          <h3 className="text-lg font-semibold text-gray-900 dark:text-white capitalize">{key.replace(/_/g, ' ')}</h3>
+                          {typeof value === 'object' && value !== null ? (
+                            // Handle object rendering (e.g., image, JSON, etc.)
+                            Array.isArray(value) ? (
+                              <ul className="text-gray-900 text-sm dark:text-white/70">
+                                {value.map((item, index) => (
+                                  <li key={index}>{typeof item === 'object' ? JSON.stringify(item) : item}</li>
+                                ))}
+                              </ul>
+                            ) : (
+                              <pre className="text-gray-900 text-sm dark:text-white/70">
+                                {JSON.stringify(value, null, 2)}
+                              </pre>
+                            )
+                          ) : (
+                            // Render as string or number
+                            <p className="text-gray-900 text-sm dark:text-white/70">{value}</p>
+                          )}
+                        </div>
+                      ))}
 
-                      {/* status */}
-                      <div className="flex items-center gap-2">
-                        Status :
-                        <span className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${request.status === 'pending'
-                          ? 'bg-yellow-200 text-yellow-800'
-                          : request.status === 'approved'
-                            ? 'bg-green-200 text-green-800'
-                            : 'bg-red-200 text-red-800'
-                          }`}>
-                          {request.status}
-                        </span>
-                      </div>
+                    </div>
+
+                    {/* status */}
+                    <div className="flex items-center gap-2">
+                      Status :
+                      <span className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${request.status === 'pending'
+                        ? 'bg-yellow-200 text-yellow-800'
+                        : request.status === 'approved'
+                          ? 'bg-green-200 text-green-800'
+                          : 'bg-red-200 text-red-800'
+                        }`}>
+                        {request.status}
+                      </span>
+                    </div>
                   </div>
                 </div>
               ))}

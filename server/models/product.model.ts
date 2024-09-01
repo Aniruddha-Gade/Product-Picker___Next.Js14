@@ -43,7 +43,10 @@ const productSchema = new Schema<IProduct>({
         default: 'pending'  // New products start as 'pending'
     },
     createdAt:{
-type:Date
+        type:Date
+    },
+    updatedAt:{
+        type:Date
     }
 
 }, {timeStamps:true});

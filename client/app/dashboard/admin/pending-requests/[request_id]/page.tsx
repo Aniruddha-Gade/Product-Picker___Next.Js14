@@ -86,9 +86,10 @@ interface PageParams {
                                     {/* product keys */}
                                     <TableHeader>
                                         <TableRow>
-                                            <TableHead className="w-[100px]">Product Title</TableHead>
+                                            <TableHead className='break-words max-w-[50px] '>Product Title</TableHead>
+                                            <TableHead className='min-w-[100px] '>Product Image</TableHead>
                                             <TableHead>Product Description</TableHead>
-                                            <TableHead className="text-right">Price</TableHead>
+                                            <TableHead>Price</TableHead>
                                             <TableHead>Submitted By</TableHead>
                                             <TableHead>Status</TableHead>
                                         </TableRow>
@@ -97,7 +98,18 @@ interface PageParams {
                                     {/* product data*/}
                                     <TableBody>
                                         <TableRow key={request?._id}>
-                                            <TableCell className="font-medium">{request?.productId?.title}</TableCell>
+                                            <TableCell className="font-medium break-words max-w-[50px] ">{request?.productId?.title}</TableCell>
+                                            <TableCell className='min-w-[100px] '>
+                                            <div className='w-full h-60 flex-center '>
+                    <Image
+                      src={request?.productId?.image ? request?.productId?.image : '/assets/images/not-available.jpg'}
+                      width={230}
+                      height={230}
+                      className='w-full h-full object-cover rounded-xl '
+                      alt={`${request?.productId?.title}`}
+                    />
+                  </div>
+                                            </TableCell>
                                             <TableCell className="font-medium">{request?.productId?.description}</TableCell>
                                             <TableCell>{request?.productId?.price}</TableCell>
                                             <TableCell>

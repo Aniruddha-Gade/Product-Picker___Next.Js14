@@ -9,6 +9,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { IProduct } from "../../types/type"
 import { LoadingProductSkeleton } from "../../utils/LoadingSkeleton"
+import { formatDate } from '../../../lib/formatDate'
 
 
 
@@ -71,7 +72,12 @@ const AllProductsPage = () => {
                     <div className='flex flex-col gap-2'>
                       <h2 className="text-xl font-semibold">{product?.title}</h2>
                       <p>{product?.description}</p>
-                      <p className="font-bold">Price: ${product?.price}</p>
+                      <p className="font-bold">Price: ₹{product?.price}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">
+                        Date: <span className="font-medium text-gray-800 dark:text-gray-200">
+                          {product?.createdAt ? formatDate(product?.createdAt) : 'Date not available'}
+                        </span>
+                      </p>
                     </div>
                     <div>
                       <span className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${product?.status === 'pending'
