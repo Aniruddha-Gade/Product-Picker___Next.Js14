@@ -8,7 +8,9 @@ export interface IProduct {
         name:string;
         email:string;
     };
-    image?:string
+    image?:string;
+    updatedAt: string;
+    createdAt: string;
 }
 
 
