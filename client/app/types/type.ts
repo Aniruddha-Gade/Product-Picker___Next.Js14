@@ -9,7 +9,7 @@ export interface IProduct {
         email:string;
     };
     image?:string;
-     : string;
+    updatedAt: string;
     createdAt: string;
 }
 
