@@ -40,6 +40,8 @@ export interface IRequest {
     submittedBy: ISubmittedBy;
     reviewedBy: IReviewedBy;
     __v: number;
+    updatedAt: string;
+    createdAt: string;
 }
 
 

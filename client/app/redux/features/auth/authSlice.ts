@@ -27,7 +27,9 @@ const initialState = {
 };
 
 
-
+console.log("token from authslice = ",localStorage.getItem("token"))
+console.log("token from authslice = ",token)
+console.log("user from authslice = ",user)
 
 const authSlice = createSlice({
   name: "auth",

@@ -219,7 +219,7 @@ export const mySubmissions = catchAsyncError(async (req: Request, res: Response,
             submittedBy: userId
         })
         .populate('reviewedBy', 'name email createdAt updatedAt')
-        .populate('productId', 'title description price createdAt')
+        .populate('productId', 'title description price image createdAt')
         .sort({ createdAt: -1 }); // Sorting in descending order of creation time
 
         return res.status(201).json({

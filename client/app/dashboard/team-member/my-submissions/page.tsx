@@ -6,10 +6,11 @@ import { toast } from 'sonner';
 import SidebarLayout from '../../../components/sidebar/SidebarLayout'
 import { useGetMySubmissionsQuery } from '../../../redux/features/review/reviewApi';
 import Link from "next/link"
+import Image from "next/image"
 import AdminProtected from '../../../hooks/adminProtected'
 import { LoadingRequestSkeleton } from "../../../utils/LoadingSkeleton"
 import { IRequest } from "../../../types/type"
-
+import { formatDate } from "../../../../lib/formatDate"
 
 
 const PendingRequestPage = () => {
@@ -61,32 +62,43 @@ const PendingRequestPage = () => {
                     <div className='absolute flex-center -top-2 -right-2 bg-green-600 w-10 h-10 p-3 rounded-full '>
                       <p className='text-black dark:text-white font-bold text-xl'>{index + 1}</p>
                     </div>
-                    <div className="mb-4 flex flex-col gap-3 p-3 rounded-lg bg-black/10 dark:bg-white/10">
-                      <p>Original Product</p>
-                      <div className="text-lg font-semibold text-gray-900 dark:text-white">
-                        <p>Title :</p>
-                        <span className='text-gray-900 dark:text-white/70'>{request?.productId?.title}</span>
+                    <div className="mb-4 flex justify-between gap-3 p-3 rounded-lg bg-black/10 dark:bg-white/10">
+                      <div className='flex flex-col gap-3 p-3 w-[60%] '>
+                        <p>Original Product</p>
+                        <div className="text-lg font-semibold text-gray-900 dark:text-white">
+                          <p>Title :</p>
+                          <span className='text-gray-900 dark:text-white/70'>{request?.productId?.title}</span>
+                        </div>
+
+                        <div className="text-lg font-semibold text-gray-900 dark:text-white">
+                          <p>Description :</p>
+                          <span className='text-gray-900 text-sm dark:text-white/70'>{request?.productId?.description}</span>
+                        </div>
+
+                        <div className="text-lg font-semibold text-gray-900 dark:text-white">
+                          <p>Price :</p>
+                          <span className='text-gray-900 text-sm dark:text-white/70'>{request?.productId?.price}</span>
+                        </div>
+                        <div className="text-sm text-gray-600 dark:text-gray-400">
+                          <p>Product Created Date:</p>
+                          <span className="font-medium text-gray-800 dark:text-gray-200">
+                            {request?.productId?.createdAt ? formatDate(request?.productId?.createdAt) : 'Date not available'}
+                          </span>
+                        </div>
                       </div>
 
-                      <div className="text-lg font-semibold text-gray-900 dark:text-white">
-                        <p>Description :</p>
-                        <span className='text-gray-900 text-sm dark:text-white/70'>{request?.productId?.description}</span>
-                      </div>
-
-                      <div className="text-lg font-semibold text-gray-900 dark:text-white">
-                        <p>Price :</p>
-                        <span className='text-gray-900 text-sm dark:text-white/70'>{request?.productId?.price}</span>
-                      </div>
-                      <div className="text-sm text-gray-600 dark:text-gray-400">
-                        <p>Product Created Date:</p>
-                        <span className="font-medium text-gray-800 dark:text-gray-200">
-                          {request?.productId?.createdAt ? formatDate(request?.productId?.createdAt) : 'Date not available'}
-                        </span>
+                      <div className='w-[30%] h-60 flex-center '>
+                        <Image
+                          src={request?.productId?.image ? request?.productId?.image : '/assets/images/not-available.jpg'}
+                          width={230}
+                          height={230}
+                          className='w-full h-full object-content rounded-xl '
+                          alt={`${request?.productId?.title}`}
+                        />
                       </div>
                     </div>
 
                     <div className='flex flex-col gap-5 '>
-                      <div>
                         <div className="text-lg font-semibold text-gray-900 dark:text-white">
                           <p> Reviewed by :</p>
                           <span className='text-gray-900 text-sm text-md dark:text-white/70'>{request.reviewedBy?.name || 'Not yet reviewed'}</span>
@@ -99,13 +111,12 @@ const PendingRequestPage = () => {
                             </>
                           }
                         </div>
-                        <div className="text-sm text-gray-600 dark:text-gray-400">
+                        <div className="text-lg font-semibold text-gray-900 dark:text-white">
                           <p>Review checked Date:</p>
-                          <span className="font-medium text-gray-800 dark:text-gray-200">
+                          <span className="text-gray-900 text-sm text-md dark:text-white/70">
                             {request?.updatedAt ? formatDate(request?.updatedAt) : 'Date not available'}
                           </span>
                         </div>
-                      </div>
                     </div>
 
                     {/* Requested To update product details */}
