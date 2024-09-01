@@ -50,6 +50,8 @@ const Verification: React.FC<Props> = ({ open, setOpen, setRoute }) => {
   useEffect(() => {
     if (isSuccess) {
       toast.success("Account activated successfully")
+      setOpen(false)
+      setRoute("")
     }
     if (error) {
       if ("data" in error) {

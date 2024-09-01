@@ -32,8 +32,33 @@ export default function Home() {
       />
 
 
-      <div>
-        
+      <div className='flex flex-col mt-14 min-h-screen text-black dark:text-white p-5'>
+        <h3 className='text-2xl font-semibold '>Furniture for you?</h3>
+
+        <div className="bg-black/10 dark:bg-white/10 mt-5 p-6 rounded-2xl shadow-lg">
+          <h1 className="text-2xl font-semibold  mb-4">Product Picker 💪🏆</h1>
+
+          <p className="">
+            Product Picker is a full-stack application designed to manage products efficiently with robust features including:
+          </p>
+
+          <ul className="list-disc list-inside  mt-4">
+            <li>Authentication && Authorization</li>
+            <li>Role-based access</li>
+            <li>Product management</li>
+            <li>Review submissions</li>
+            <li>And more...</li>
+          </ul>
+
+          <p className="mt-4">
+            Built with the latest technologies such as
+            <span className='font-bold text-green-600'> Next.js 14, TypeScript, Express.js, MongoDB and Redux</span>
+            ,<br />
+            it offers a seamless user experience for both team members and admins.
+          </p>
+
+        </div>
+
       </div>
 
 
@@ -44,9 +69,9 @@ export default function Home() {
           <AuthModal open={open} setOpen={setOpen} setRoute={setRoute} />
         </>
       }
-       {
+      {
         route === 'verification' && <>
-          <Verification open={open} setOpen={setOpen} setRoute={setRoute } />
+          <Verification open={open} setOpen={setOpen} setRoute={setRoute} />
         </>
       }
 

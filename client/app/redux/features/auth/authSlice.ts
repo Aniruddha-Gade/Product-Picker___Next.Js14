@@ -47,6 +47,7 @@ const authSlice = createSlice({
       localStorage.setItem("user", JSON.stringify(action.payload.user))
     },
     userLoggedOut: (state) => {
+      console.log("removing tokens from local storage")
       state.token = "";
       state.user = "";
       localStorage.removeItem("token")
