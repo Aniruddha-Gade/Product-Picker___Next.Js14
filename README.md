@@ -117,11 +117,17 @@ Contributions are welcome! Please feel free to submit a pull request or open an 
 <img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/Request-stats-dark2.png' />
 <img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/Request-stats-dark.png' />
 <img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/profile-stats-dark.png' />
+<hr/>
+
+### OTP Template 
+<img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/otp-template.png' />
+<hr/>
 
 ### Creatd Product Page 📊
 <img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/create-product-form-dark.png' />
+<img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/create-product-form-dark.png' />
 <img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/create-product-form-light.png' />
-
+<hr/>
 
 ### My Submission 📝
 <img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/my-submission-dark1.png' />
@@ -130,6 +136,7 @@ Contributions are welcome! Please feel free to submit a pull request or open an 
 <img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/my-submission-dark4.png' />
 <img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/my-submission-dark5.png' />
 <img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/my-submission-light.png' />
+<hr/>
 
 
 ### Pending Requests 📝
@@ -138,10 +145,14 @@ Contributions are welcome! Please feel free to submit a pull request or open an 
 <img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/pending-request-dark2.png' />
 <img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/pending-request-dark3.png' />
 <img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/pending-request-list-white.png' />
+<hr/>
+
 
 ### Review Submission 📝
 <img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/pending-request-white.png' />
 <img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/select-status.png' />
+<hr/>
+
 
 ### Product List 🛍️
 <img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/product-list-dark1.png' />
@@ -152,6 +163,7 @@ Contributions are welcome! Please feel free to submit a pull request or open an 
 <img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/product-list-dark6.png' />
 <img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/product-list-light.png' />
 <img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/product-list-light2.png' />
+<hr/>
 
 
 ### Loading Skeleton 🛍️
@@ -160,15 +172,19 @@ Contributions are welcome! Please feel free to submit a pull request or open an 
 <img width='100%' src='' />
 <img width='100%' src='' />
 <img width='100%' src='' />
+<hr/>
+
 
 ### Profile Page 🛍️
 <img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/profile-dark.png' />
 <img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/team-member-profile-dark.png' />
 <img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/team-member-profile-dark.png' />
+<hr/>
+
 
 ### Profile Dropdown (profile, dashboard, logout) 🛍️
 <img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/profile-dropdown.png' />
-
+<hr/>
 
 
 
