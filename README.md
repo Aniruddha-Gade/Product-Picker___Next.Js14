@@ -1,6 +1,4 @@
-Here's a README file tailored for your "Product Picker" project:
 
----
 
 <img height="100" src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/logo.png' />
 
@@ -58,6 +56,7 @@ Backend deployed on Render 📬 : [ ]
 - **Responsive UI**: 📱 Built with Tailwind CSS for a mobile-friendly user experience.
 - **Caching with Redis**: 🚀 Optimized performance using Redis for caching.
 - **Formik and Yup Validation**: 📝 Form handling with robust validation.
+- **Redux RTK Query** : used Redux RTK query for API. 
 
 # Additional Points:
 
