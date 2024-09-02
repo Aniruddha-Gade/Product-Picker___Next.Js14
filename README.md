@@ -169,9 +169,6 @@ Contributions are welcome! Please feel free to submit a pull request or open an 
 ### Loading Skeleton 🛍️
 <img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/product-list-loading-skeleton.png' />
 <img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/submissions-list-loading-skeleton.png' />
-<img width='100%' src='' />
-<img width='100%' src='' />
-<img width='100%' src='' />
 <hr/>
 
 
