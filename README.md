@@ -95,7 +95,7 @@ App/
         └── page.tsx
 ```
 
-# Packages 
+# Packages: 🏆
 💻 Frontend Technologies
 Utilized the following packages and libraries on the frontend:
 - 🎨 ShadCN UI Components
