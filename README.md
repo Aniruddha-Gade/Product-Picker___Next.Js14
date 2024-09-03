@@ -28,6 +28,7 @@ Backend deployed on Render 📬 : [ ]
 |-------------------------|----------------------------------------------|
 | [Tech Stack](#tech-stack-)             | 💻🔧 Technologies used in the project         |
 | [Features](#features-)             | 🚀 Features of the project         |
+| [File Structure](#file-structure-)             | 📁 File Structure for NextJs14        |
 | [Schema](#schema-)                  | 🗂 Explanation of data schemas used          |
 | [React Hooks](#react-hooks-)            | 🎣 Overview of React Hooks utilized          |
 | [Acknowledgements](#acknowledgements-)         | 🙏 Libraries and tools acknowledged        |
@@ -65,6 +66,35 @@ Backend deployed on Render 📬 : [ ]
 - **Extensive TypeScript Use**: 🛠️ Type safety across the stack.
 - **RTK Query**: 🏆 Simplify the integration of backend APIs with the Redux store, reducing boilerplate code for handling API requests and responses.
 - **Git and GitHub**: 📝 Organized version control with clear commit history.
+
+
+# File Structure 📁
+
+Here's the file structure text for the routes in Next.js:
+
+```bash
+App/
+└── dashboard/
+    ├── admin/
+    │   ├── pending-requests/
+    │   │   ├── page.tsx
+    │   │   └── [request_id]/
+    │   │       └── page.tsx
+    ├── team-member/
+    │   └── my-submissions/
+    │       └── page.tsx
+    ├── create-product/
+    │   └── page.tsx
+    ├── all-products/
+    │   ├── page.tsx
+    │   └── [product_id]/
+    │       └── page.tsx
+    ├── page.tsx
+    └── profile/
+        └── page.tsx
+```
+
+
 
 ## Getting Started: 💡
 
