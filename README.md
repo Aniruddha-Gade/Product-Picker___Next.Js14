@@ -29,6 +29,7 @@ Backend deployed on Render 📬 : [ ]
 | [Tech Stack](#tech-stack-)             | 💻🔧 Technologies used in the project         |
 | [Features](#features-)             | 🚀 Features of the project         |
 | [File Structure](#file-structure-)             | 📁 File Structure for NextJs14        |
+| [Packages](#packages-)             | 🏆 Packages for frontend && backend        |
 | [Schema](#schema-)                  | 🗂 Explanation of data schemas used          |
 | [React Hooks](#react-hooks-)            | 🎣 Overview of React Hooks utilized          |
 | [Acknowledgements](#acknowledgements-)         | 🙏 Libraries and tools acknowledged        |
@@ -94,8 +95,13 @@ App/
         └── page.tsx
 ```
 
+# Packages 
+On the frontend, I utilized packages like ShadCN UI components, Formik, Next-themes, Yup, and React-Redux. 
+<br/>
+<br/>
+For the backend, I integrated libraries such as JSON Web Token, EJS, OTP-generator, Bcrypt, Multer, Nodemailer, and Mongoose, among others
 
-
+<hr/>
 ## Getting Started: 💡
 
 ### Prerequisites
