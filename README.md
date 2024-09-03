@@ -96,10 +96,28 @@ App/
 ```
 
 # Packages 
-On the frontend, I utilized packages like ShadCN UI components, Formik, Next-themes, Yup, and React-Redux. 
-<br/>
-<br/>
-For the backend, I integrated libraries such as JSON Web Token, EJS, OTP-generator, Bcrypt, Multer, Nodemailer, and Mongoose, among others
+💻 Frontend Technologies
+Utilized the following packages and libraries on the frontend:
+- 🎨 ShadCN UI Components
+- 📝 Formik
+- 🌗 Next-Themes
+- ✅ Yup
+- ⚛️ React-Redux
+- 🏆 RTK Query
+
+
+🔧 Backend Technologies
+Integrated the following libraries and tools on the backend:
+- 🔑 JSON Web Token
+- 📄 EJS
+- 📲 OTP-Generator
+- 🔐 Bcrypt
+- 📤 Multer
+- 📧 Nodemailer
+- 🗄️ Mongoose
+- ➕ And Others
+
+
 
 <hr/>
 ## Getting Started: 💡
