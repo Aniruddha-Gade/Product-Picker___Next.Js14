@@ -6,7 +6,7 @@
 
  A full-stack application designed to manage products efficiently with robust features including authentication, role-based access, product management, review submissions, and more. 
  <br/>
- Built with the latest technologies such as Next.js 14, TypeScript, Express.js, and MongoDB, it offers a seamless user experience for both team members and admins.
+ Built with the latest technologies such as Next.js 14, TypeScript, Express.js,Redis , Redux Toolkit and MongoDB, it offers a seamless user experience for both team members and admins.
 
 <hr/>
 
