@@ -1,16 +1,18 @@
-Here's a README file tailored for your "Product Picker" project:
 
----
 
-<img height="100" src='' />
+<img height="100" src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/logo.png' />
 
 # Product Picker 🛒
 
-**Product Picker** is a full-stack application designed to manage products efficiently with robust features including authentication, role-based access, product management, review submissions, and more. Built with the latest technologies such as Next.js 14, TypeScript, Express.js, and MongoDB, it offers a seamless user experience for both team members and admins.
+ A full-stack application designed to manage products efficiently with robust features including authentication, role-based access, product management, review submissions, and more. 
+ <br/>
+ Built with the latest technologies such as Next.js 14, TypeScript, Express.js,Redis , Redux Toolkit and MongoDB, it offers a seamless user experience for both team members and admins.
 
 <hr/>
 
 <h2>Live link 🌍📡 - [  ]</h2>
+
+<h2>YouTube Presentation ⚡- [ https://youtu.be/IK8wvrQt_90?feature=shared ]  </h2>
 
 <h2>
 Postman Collection 📬 : [ ]
@@ -28,6 +30,8 @@ Backend deployed on Render 📬 : [ ]
 |-------------------------|----------------------------------------------|
 | [Tech Stack](#tech-stack-)             | 💻🔧 Technologies used in the project         |
 | [Features](#features-)             | 🚀 Features of the project         |
+| [File Structure](#file-structure-)             | 📁 File Structure for NextJs14        |
+| [Packages](#packages-)             | 🏆 Packages for frontend && backend        |
 | [Schema](#schema-)                  | 🗂 Explanation of data schemas used          |
 | [React Hooks](#react-hooks-)            | 🎣 Overview of React Hooks utilized          |
 | [Acknowledgements](#acknowledgements-)         | 🙏 Libraries and tools acknowledged        |
@@ -56,6 +60,7 @@ Backend deployed on Render 📬 : [ ]
 - **Responsive UI**: 📱 Built with Tailwind CSS for a mobile-friendly user experience.
 - **Caching with Redis**: 🚀 Optimized performance using Redis for caching.
 - **Formik and Yup Validation**: 📝 Form handling with robust validation.
+- **Redux RTK Query** : used Redux RTK query for API. 
 
 # Additional Points:
 
@@ -65,6 +70,58 @@ Backend deployed on Render 📬 : [ ]
 - **RTK Query**: 🏆 Simplify the integration of backend APIs with the Redux store, reducing boilerplate code for handling API requests and responses.
 - **Git and GitHub**: 📝 Organized version control with clear commit history.
 
+
+# File Structure 📁
+
+Here's the file structure text for the routes in Next.js:
+
+```bash
+App/
+└── dashboard/
+    ├── admin/
+    │   ├── pending-requests/
+    │   │   ├── page.tsx
+    │   │   └── [request_id]/
+    │   │       └── page.tsx
+    ├── team-member/
+    │   └── my-submissions/
+    │       └── page.tsx
+    ├── create-product/
+    │   └── page.tsx
+    ├── all-products/
+    │   ├── page.tsx
+    │   └── [product_id]/
+    │       └── page.tsx
+    ├── page.tsx
+    └── profile/
+        └── page.tsx
+```
+
+# Packages: 🏆
+💻 Frontend Technologies
+Utilized the following packages and libraries on the frontend:
+- 🎨 ShadCN UI Components
+- 📝 Formik
+- 🌗 Next-Themes
+- ✅ Yup
+- ⚛️ React-Redux
+- 🏆 RTK Query
+
+
+🔧 Backend Technologies
+Integrated the following libraries and tools on the backend:
+- 🔑 JSON Web Token
+- 📄 EJS
+- 📲 OTP-Generator
+- 🔐 Bcrypt
+- 📤 Multer
+- 📧 Nodemailer
+- 🗄️ Mongoose
+- ➕ And Others
+
+
+
+<hr/>
 ## Getting Started: 💡
 
 ### Prerequisites
@@ -108,13 +165,79 @@ Contributions are welcome! Please feel free to submit a pull request or open an 
 ## Screen Preview 💻
 
 ### Dashboard Page 📊
-<img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker/screenshots/dashboard.png' />
 
-### Product Page 🛍️
-<img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker/screenshots/product.png' />
+
+### Total, Aprroved, Pending and Rejected Request 📊
+<img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/Request-stats-light.png' />
+<img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/Request-stats-dark2.png' />
+<img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/Request-stats-dark.png' />
+<img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/profile-stats-dark.png' />
+<hr/>
+
+### OTP Template 
+<img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/otp-template.png' />
+<hr/>
+
+### Creatd Product Page 📊
+<img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/create-product-form-dark.png' />
+<img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/create-product-form-dark.png' />
+<img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/create-product-form-light.png' />
+<hr/>
+
+### My Submission 📝
+<img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/my-submission-dark1.png' />
+<img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/my-submission-dark2.png' />
+<img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/my-submission-dark3.png' />
+<img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/my-submission-dark4.png' />
+<img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/my-submission-dark5.png' />
+<img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/my-submission-light.png' />
+<hr/>
+
+
+### Pending Requests 📝
+<img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/pending-request-dark1.png' />
+<img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/pending-request-list.png' />
+<img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/pending-request-dark2.png' />
+<img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/pending-request-dark3.png' />
+<img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/pending-request-list-white.png' />
+<hr/>
+
 
 ### Review Submission 📝
-<img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker/screenshots/review.png' />
+<img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/pending-request-white.png' />
+<img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/select-status.png' />
+<hr/>
+
+
+### Product List 🛍️
+<img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/product-list-dark1.png' />
+<img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/product-list-dark2.png' />
+<img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/product-list-dark3.png' />
+<img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/product-list-dark4.png' />
+<img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/product-list-dark5.png' />
+<img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/product-list-dark6.png' />
+<img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/product-list-light.png' />
+<img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/product-list-light2.png' />
+<hr/>
+
+
+### Loading Skeleton 🛍️
+<img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/product-list-loading-skeleton.png' />
+<img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/submissions-list-loading-skeleton.png' />
+<hr/>
+
+
+### Profile Page 🛍️
+<img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/profile-dark.png' />
+<img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/team-member-profile-dark.png' />
+<img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/team-member-profile-dark.png' />
+<hr/>
+
+
+### Profile Dropdown (profile, dashboard, logout) 🛍️
+<img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/profile-dropdown.png' />
+<hr/>
+
 
 
 
