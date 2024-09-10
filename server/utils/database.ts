@@ -11,7 +11,7 @@ const connectDB = async () => {
                 console.log("Database Connected Successfully 🟢🟢")
             })
 
-    } catch (error) {
+    } catch (error:any) {
         console.log("Error while connecting MongoDB Database => ", error)
         setTimeout(connectDB, 5000)
     }

@@ -68,7 +68,7 @@ export const registerUser = catchAsyncError(async (req: Request, res: Response, 
                 activationToken: activationToken.token,
                 message: `Please check your email : ${email} to activate your account`
             })
-        } catch (error) {
+        } catch (error: any) {
             console.log(`Error while sending email to user with email : ${email} => `, error)
             return next(new ErrorHandler(error.message, 400, "Error while registering user"))
         }
@@ -197,7 +197,7 @@ export const loginUser = catchAsyncError(async (req: Request, res: Response, nex
         sendToken(user, 200, res)
 
 
-    } catch (error:any) {
+    } catch (error: any) {
         return next(new ErrorHandler(error.message, 400, "Error while loging user"));
     }
 })
@@ -223,7 +223,7 @@ export const logoutUser = catchAsyncError(async (req: Request, res: Response, ne
             message: "User logout successfully"
         });
 
-    } catch (error:any) {
+    } catch (error: any) {
         return next(new ErrorHandler(error.message, 400, "Error while logout user"));
     }
 })
@@ -283,7 +283,7 @@ export const updateAccessToken = catchAsyncError(async (req: Request, res: Respo
         console.log("calling refresh token middleware")
         next()
 
-    } catch (error:any) {
+    } catch (error: any) {
         return next(new ErrorHandler(error.message, 400, "Error while updating access token"));
     }
 })
@@ -311,7 +311,7 @@ export const getUserInfo = catchAsyncError(async (req: Request, res: Response, n
             })
         }
 
-    } catch (error:any) {
+    } catch (error: any) {
         return next(new ErrorHandler(error.message, 400, "Error while fetching userInfo"));
     }
 })

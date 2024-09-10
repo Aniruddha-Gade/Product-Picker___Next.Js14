@@ -4,10 +4,12 @@ export interface IProduct {
     title: string;
     description: string;
     // images: string[];
-    images: string;
+    image: string;
     price: number;
     status: 'pending' | 'approved' | 'rejected';
     createdBy: Schema.Types.ObjectId;
+    createdAt: Date;
+    updatedAt: Date;
 }
 
 
@@ -42,14 +44,14 @@ const productSchema = new Schema<IProduct>({
         enum: ['pending', 'approved', 'rejected'],
         default: 'pending'  // New products start as 'pending'
     },
-    createdAt:{
-        type:Date
+    createdAt: {
+        type: Date
     },
-    updatedAt:{
-        type:Date
+    updatedAt: {
+        type: Date
     }
 
-}, {timeStamps:true});
+}, { timestamps: true });
 
 
 

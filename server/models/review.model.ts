@@ -8,6 +8,8 @@ interface IReview {
     status: 'pending' | 'approved' | 'rejected';
     submittedBy: Schema.Types.ObjectId;
     reviewedBy?: Schema.Types.ObjectId;   // mark as optional, initially the review is not reviewed
+    createdAt: Date;
+    updatedAt: Date;
 }
 
 
@@ -35,13 +37,13 @@ const reviewSchema = new Schema<IReview>({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-    createdAt:{
-        type:Date
+    createdAt: {
+        type: Date
     },
-    updatedAt:{
-        type:Date
+    updatedAt: {
+        type: Date
     }
-}, {timeStamps:true});
+}, { timestamps: true });
 
 
 const ReviewModel = models.Review || model<IReview>('Review', reviewSchema);

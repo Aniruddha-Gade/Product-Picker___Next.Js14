@@ -72,7 +72,7 @@ export const createProduct = [
               message: "Product created successfully",
               product,
             });
-          } catch (error) {
+          } catch (error: any) {
             return next(
               new ErrorHandler("Error creating product", 400, "Error while creating product")
             );
@@ -80,7 +80,7 @@ export const createProduct = [
         }
       ).end(imageFile.buffer); // Write the image buffer to the Cloudinary upload stream
 
-    } catch (error) {
+    } catch (error: any) {
       return next(
         new ErrorHandler(error.message, 400, "Error while creating product")
       );
@@ -110,7 +110,7 @@ export const getProducts = catchAsyncError(async (req: Request, res: Response, n
       message: "Product fetched successfully",
     });
 
-  } catch (error) {
+  } catch (error: any) {
     return next(new ErrorHandler(error.message, 400, "Error while fetching product"));
   }
 });
@@ -136,7 +136,7 @@ export const getSingleProduct = catchAsyncError(async (req: Request, res: Respon
     }
 
     // Check if the product was created by the logged-in user
-    if (product.createdBy._id.toString() !== createdBy.toString()) {
+    if (product.createdBy._id.toString() !== createdBy?.toString()) {
       return next(new ErrorHandler("You are not eligible to access this product", 403, "Error while fetching single product"));
     }
 
@@ -147,7 +147,7 @@ export const getSingleProduct = catchAsyncError(async (req: Request, res: Respon
       message: "Product found successfully",
     });
 
-  } catch (error) {
+  } catch (error: any) {
     return next(new ErrorHandler(error.message, 400, "Error while fetching single product"));
   }
 });

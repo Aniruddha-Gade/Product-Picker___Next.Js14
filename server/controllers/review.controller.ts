@@ -12,7 +12,7 @@ export const submitReview = catchAsyncError(async (req: Request, res: Response, 
     try {
         const { productId } = req.params;
         const { updatedFields } = req.body;
-        const userId = req.user._id;
+        const userId = req?.user?._id;
         console.log("productId = ", productId)
         console.log("updatedFields = ", updatedFields)
 
@@ -37,7 +37,7 @@ export const submitReview = catchAsyncError(async (req: Request, res: Response, 
             review: newReview
         });
     }
-    catch (error) {
+    catch (error:any) {
         return next(new ErrorHandler(error.message, 400, "Error while submit review"));
     }
 });
@@ -84,7 +84,7 @@ export const reviewSubmission = catchAsyncError(async (req: Request, res: Respon
             message: `Review ${status}`,
             review
         });
-    } catch (error) {
+    } catch (error:any) {
         return next(new ErrorHandler(error.message, 400, "Error while product review submission"));
     }
 });
@@ -110,7 +110,7 @@ export const getSingleReview = catchAsyncError(async (req: Request, res: Respons
             review
         });
     }
-    catch (error) {
+    catch (error:any) {
         return next(new ErrorHandler(error.message, 400, "Error while submit review"));
     }
 });
@@ -137,7 +137,7 @@ export const getAllPendingReviews = catchAsyncError(async (req: Request, res: Re
             pendingReviews
         });
     }
-    catch (error) {
+    catch (error:any) {
         return next(new ErrorHandler(error.message, 400, "Error while submit review"));
     }
 });
@@ -158,7 +158,7 @@ type ProfileStats = {
 
 export const getProfileStats = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const userId = req.user._id
+        const userId = req?.user?._id
         const userRole = req.user?.accountType
 
         let stats: ProfileStats;
@@ -200,7 +200,7 @@ export const getProfileStats = catchAsyncError(async (req: Request, res: Respons
             message: "Profile stats fetched successfully"
         });
     }
-    catch (error) {
+    catch (error:any) {
         return next(new ErrorHandler(error.message, 400, "Error while submit review"));
     }
 });
@@ -212,7 +212,7 @@ export const getProfileStats = catchAsyncError(async (req: Request, res: Respons
 export const mySubmissions = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
     try {
 
-        const userId = req.user._id
+        const userId = req?.user?._id
 
         // find reviews with 'pending' mark
         const allSubmissions = await ReviewModel.find({
@@ -227,7 +227,7 @@ export const mySubmissions = catchAsyncError(async (req: Request, res: Response,
             allSubmissions
         });
     }
-    catch (error) {
+    catch (error:any) {
         return next(new ErrorHandler(error.message, 400, "Error while fetching all submissions of team member"));
     }
 });
