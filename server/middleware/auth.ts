@@ -3,6 +3,7 @@ import { Request, Response, NextFunction } from 'express';
 import { catchAsyncError } from './../utils/catchAsyncError';
 import ErrorHandler from '../utils/ErrorHandler';
 import jwt, { JwtPayload } from 'jsonwebtoken'
+import { IUser } from '../models/user.model';
 require('dotenv').config()
 
 
@@ -10,39 +11,40 @@ require('dotenv').config()
 // =========================== IS AUTHENTICATED ===========================
 export const isAuthenticated = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const access_token = req.cookies.access_token as string
-
+        const access_token = req.cookies.access_token as string;
         if (!access_token) {
             return next(new ErrorHandler('Please login to access this resource', 400, "Error while authenticating"));
         }
 
-        // decode token
-        const decodeToken = jwt.verify(access_token, process.env.ACCESS_TOKEN_SECRET as string) as JwtPayload
-        if (!decodeToken) {
-            return next(new ErrorHandler('Access token is invalid', 400, "Error while authenticating"));
-        }
-        console.log({ decodeToken })
+        // Decode token
+        const decodeToken = jwt.verify(access_token, process.env.ACCESS_TOKEN_SECRET as string) as JwtPayload & IUser;
+        console.log("decodeToken = ", decodeToken)
         // example - 
         // {
-        //     id: '66aba2df71540941066d1847',
-        //     accountType: 'Instructor',
-        //     email: 'radhamasale889@gmail.com',
-        //     name: 'Aniruddha gade'
-        //     iat: 1722676678,
-        //     exp: 1722947183
+        //    _id: '66ceb5a51b36423638f71e0a',
+        //   accountType: 'Team member',
+        //   email: 'radhamasale889@gmail.com',       
+        //   name: 'Bhavu Gade',
+        //   iat: 1725962652,
+        //   exp: 1725963072
         // }
 
-        // store in request
-        req.user = decodeToken
-        // console.log('req.user = ', req.user)
 
-        // call next middleware
-        next()
+        // Type guard to check if decodeToken has all IUser fields
+        if (!('_id' in decodeToken) || !('email' in decodeToken) || !('name' in decodeToken)|| !('accountType' in decodeToken)) {
+            return next(new ErrorHandler('Access token is invalid', 400, "Error while authenticating"));
+        }
+
+        // Attach user to the request
+        req.user = decodeToken as IUser;
+
+        // Call next middleware
+        next();
 
     } catch (error: any) {
         return next(new ErrorHandler(error.message, 400, "Error while authenticating"));
     }
-})
+});
 
 
 

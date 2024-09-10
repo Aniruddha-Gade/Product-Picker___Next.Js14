@@ -248,7 +248,6 @@ export const updateAccessToken = catchAsyncError(async (req: Request, res: Respo
         if (!decodedToken) {
             return next(new ErrorHandler('Could not refresh token, refresh_token is invalid', 400, "Error while updating access token"));
         }
-
         // get data from redis
         const session = await redis.get(decodedToken._id as string);
         if (!session) {
@@ -280,7 +279,7 @@ export const updateAccessToken = catchAsyncError(async (req: Request, res: Respo
 
         // store in redis with 7 days expiry time
         await redis.set(user._id, JSON.stringify(user), "EX", 604800) // 7 days
-        console.log("calling refresh token middleware")
+       
         next()
 
     } catch (error: any) {
