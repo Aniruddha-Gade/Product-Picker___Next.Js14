@@ -18,7 +18,7 @@ export const apiSlice = createApi({
                 try {
                     const result = await queryFulfilled;
                     console.log("REFRESH TOKEN API RESULT => ", result)
-                    dispatch(userRegistration({ token: result.data.accessToken }));
+                    // dispatch(userRegistration({ token: result.data.accessToken }));
                 } catch (error: any) {
                     console.log("REFRESH TOKEN API ERROR => ", error)
                 }
@@ -35,12 +35,10 @@ export const apiSlice = createApi({
             async onQueryStarted(arg, { queryFulfilled, dispatch, getState }) {
                 try {
                     const result = await queryFulfilled;
-                    // const currentToken = (getState() as RootState).auth.token;
-                    const currentToken = localStorage.getItem("token") || "";
                     console.log("USER INFO API RESULT => ", result)
                     dispatch(
                         userLoggedIn({
-                            accessToken: currentToken,
+                            accessToken: result.data.access_token,
                             user: result.data.user,
                         })
                     );

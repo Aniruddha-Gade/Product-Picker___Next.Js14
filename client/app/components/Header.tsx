@@ -22,7 +22,7 @@ type HeaderProps = {
 const Header: FC<HeaderProps> = ({ activeItem, open, route, setRoute, setOpen }) => {
 
     const [active, setActive] = useState(false)
-    const { token,user } = useSelector((state: any) => state.auth)
+    const { token } = useSelector((state: any) => state.auth)
 
 console.log("token = ", token)
 
@@ -71,7 +71,7 @@ console.log("token = ", token)
 
                             {/* profile photo + dropdown-menu / login-signup */}
                             {
-                                token && user ? (
+                                token ? (
                                     <UserDropdownMenu />
                                 )
                                     :

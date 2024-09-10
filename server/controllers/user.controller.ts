@@ -298,12 +298,15 @@ export const getUserInfo = catchAsyncError(async (req: Request, res: Response, n
     try {
         const userId = req.user?._id as string;
         const userJson = await redis.get(userId)
+        const access_token = req?.cookies?.access_token as string
+
 
         if (userJson) {
             const user = JSON.parse(userJson)
             res.status(201).json({
                 success: true,
                 user,
+                access_token,
                 message: "User data fetch by ID successfully"
             })
         }
