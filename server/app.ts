@@ -5,8 +5,10 @@ import userRouter from "./route/user.route";
 import { ErrorMiddleware } from "./middleware/error";
 import productRouter from "./route/product.route";
 import reviewRouter from "./route/review.route";
+import dotenv from 'dotenv';
 
-require("dotenv").config();
+dotenv.config();
+
 
 export const app = express();
 

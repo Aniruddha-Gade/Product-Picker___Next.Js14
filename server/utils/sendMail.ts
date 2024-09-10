@@ -1,5 +1,6 @@
 import nodemailer, { Transporter } from 'nodemailer'
-require('dotenv').config()
+import dotenv from 'dotenv';
+dotenv.config();
 
 
 interface EmailOptions {
