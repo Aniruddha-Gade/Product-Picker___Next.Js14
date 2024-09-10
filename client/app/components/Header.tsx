@@ -1,13 +1,13 @@
 'use client'
 
-import React, { FC, useState } from 'react'
-import {useSelector} from 'react-redux'
+import React, { FC, useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import Image from 'next/image';
 import Link from 'next/link';
 import NavItems from '../utils/NavItems'
 import { ThemeSwitcher } from '../utils/ThemeSwitcher'
 import MobileMenu from './../utils/MobileMenu';
-import  UserDropdownMenu  from '../utils/UserDropdownMenu'
+import UserDropdownMenu from '../utils/UserDropdownMenu'
 
 
 
@@ -24,18 +24,26 @@ const Header: FC<HeaderProps> = ({ activeItem, open, route, setRoute, setOpen })
     const [active, setActive] = useState(false)
     const { token } = useSelector((state: any) => state.auth)
 
-console.log("token = ", token)
+    console.log("token = ", token)
 
-    if (typeof window !== undefined) {
-        window.addEventListener("scroll", () => {
-            if (window.scrollY > 160) {
-                setActive(true)
-            }
-            else {
-                setActive(false)
-            }
-        })
-    }
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            const handleScroll = () => {
+                if (window.scrollY > 0) {
+                    setActive(true);
+                } else {
+                    setActive(false);
+                }
+            };
+
+            window.addEventListener("scroll", handleScroll);
+
+            // Clean up the event listener on component unmount
+            return () => {
+                window.removeEventListener("scroll", handleScroll);
+            };
+        }
+    }, []);
 
     return (
         <nav className='w-full relative '>
