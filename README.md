@@ -76,7 +76,8 @@ Backend deployed on Render 📬 : [ ]
 - **Sidebar Layout**:⚡ used layout for dashboard sidebar
 - **Local Storage, Cookies**:🧲 stored tokens ans user data
 - **Reusable Components**:📌 reusable component to create, view and review Products
-- **Quality**: I make sure to have best UI and code quality to deliver this project
+- **Loading Skeleton**:💡 Implement loading skeleton rather than just showing loading text 
+- **Quality**:✅ I make sure to have best UI and code quality to deliver this project
 
 
 # File Structure 📁
