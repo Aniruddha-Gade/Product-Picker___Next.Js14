@@ -99,24 +99,24 @@ const PendingRequestPage = () => {
                     </div>
 
                     <div className='flex flex-col gap-5 '>
-                        <div className="text-lg font-semibold text-gray-900 dark:text-white">
-                          <p> Reviewed by :</p>
-                          <span className='text-gray-900 text-sm text-md dark:text-white/70'>{request.reviewedBy?.name || 'Not yet reviewed'}</span>
-                        </div>
-                        <div className="text-lg font-semibold text-gray-900 dark:text-white">
-                          {request.reviewedBy?.email &&
-                            <>
-                              <p>Email :</p>
-                              <span className='text-gray-900 text-sm text-md dark:text-white/70'>{request.reviewedBy?.email || ''}</span>
-                            </>
-                          }
-                        </div>
-                        <div className="text-lg font-semibold text-gray-900 dark:text-white">
-                          <p>Review checked Date:</p>
-                          <span className="text-gray-900 text-sm text-md dark:text-white/70">
-                            {request?.updatedAt ? formatDate(request?.updatedAt) : 'Date not available'}
-                          </span>
-                        </div>
+                      <div className="text-lg font-semibold text-gray-900 dark:text-white">
+                        <p> Reviewed by :</p>
+                        <span className='text-gray-900 text-sm text-md dark:text-white/70'>{request.reviewedBy?.name || 'Not yet reviewed'}</span>
+                      </div>
+                      <div className="text-lg font-semibold text-gray-900 dark:text-white">
+                        {request.reviewedBy?.email &&
+                          <>
+                            <p>Email :</p>
+                            <span className='text-gray-900 text-sm text-md dark:text-white/70'>{request.reviewedBy?.email || ''}</span>
+                          </>
+                        }
+                      </div>
+                      <div className="text-lg font-semibold text-gray-900 dark:text-white">
+                        <p>Review checked Date:</p>
+                        <span className="text-gray-900 text-sm text-md dark:text-white/70">
+                          {request?.updatedAt ? formatDate(request?.updatedAt) : 'Date not available'}
+                        </span>
+                      </div>
                     </div>
 
                     {/* Requested To update product details */}
@@ -166,6 +166,16 @@ const PendingRequestPage = () => {
                         {request.status}
                       </span>
                     </div>
+
+                    {/* comment from Admin */}
+                    {
+                      request.comment && <div className=''>
+                        <h3 className='text-xl font-semibold'>Comment from Admin</h3>
+                        <p className="text-gray-900 text-sm dark:text-white/70 whitespace-pre-wrap">
+                          {request?.comment}
+                        </p>
+                      </div>
+                    }
                   </div>
                 </div>
               ))}
