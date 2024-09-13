@@ -60,7 +60,8 @@ Backend deployed on Render 📬 : [ ]
 - **Responsive UI**: 📱 Built with Tailwind CSS for a mobile-friendly user experience.
 - **Caching with Redis**: 🚀 Optimized performance using Redis for caching.
 - **Formik and Yup Validation**: 📝 Form handling with robust validation.
-- **Redux RTK Query** : used Redux RTK query for API. 
+- **Redux RTK Query** : used Redux RTK query for API.
+
 
 # Additional Points:
 
@@ -69,6 +70,14 @@ Backend deployed on Render 📬 : [ ]
 - **Extensive TypeScript Use**: 🛠️ Type safety across the stack.
 - **RTK Query**: 🏆 Simplify the integration of backend APIs with the Redux store, reducing boilerplate code for handling API requests and responses.
 - **Git and GitHub**: 📝 Organized version control with clear commit history.
+- **Theme**:💡 Light and 🌑 Dark Theme
+- **Token**: Security with two ✌ tokens - Refresh Token and Access Token
+- **Protected Pages**: 🔐 Admin pages could not be access by team member and same for admin
+- **Sidebar Layout**:⚡ used layout for dashboard sidebar
+- **Local Storage, Cookies**:🧲 stored tokens ans user data
+- **Reusable Components**:📌 reusable component to create, view and review Products
+- **Loading Skeleton**:💡 Implement loading skeleton rather than just showing loading text 
+- **Quality**:✅ I make sure to have best UI and code quality to deliver this project
 
 
 # File Structure 📁
@@ -180,7 +189,6 @@ Contributions are welcome! Please feel free to submit a pull request or open an 
 
 ### Creatd Product Page 📊
 <img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/create-product-form-dark.png' />
-<img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/create-product-form-dark.png' />
 <img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/create-product-form-light.png' />
 <hr/>
 
@@ -229,7 +237,7 @@ Contributions are welcome! Please feel free to submit a pull request or open an 
 
 ### Profile Page 🛍️
 <img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/profile-dark.png' />
-<img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/team-member-profile-dark.png' />
+
 <img width='100%' src='https://github.com/Aniruddha-Gade/Product-Picker___Next.Js14/blob/main/screenshots/team-member-profile-dark.png' />
 <hr/>
 
