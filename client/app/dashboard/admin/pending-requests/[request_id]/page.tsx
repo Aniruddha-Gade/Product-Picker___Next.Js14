@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from 'react'
 import Image from 'next/image';
 import { useSelector } from 'react-redux'
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 import SidebarLayout from '../../../../components/sidebar/SidebarLayout'
 import AdminProtected from '../../../../hooks/adminProtected'
 import { toast } from 'sonner';
@@ -10,17 +12,20 @@ import { useGetSingleReviewQuery, useReviewSubmissionMutation } from '../../../.
 import { LoadingRequestSkeleton } from "../../../../utils/LoadingSkeleton"
 import { ACCOUNT_TYPE } from '../../../../constants/account-types'
 import { IRequest } from "../../../../types/type"
+import { styles } from '../../../../styles/style';
+import LoadingButtonText from '../../../../utils/LoadingButtonText';
+
 
 import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow, } from "../../../../components/ui/table"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from "../../../../components/ui/select"
 
 interface PageParams {
     request_id: string;
-  }
-  
+}
 
 
-  const page: React.FC<{ params: PageParams }> = ({ params: { request_id } }) => {
+
+const page: React.FC<{ params: PageParams }> = ({ params: { request_id } }) => {
     const [request, setRequest] = useState<IRequest | null>(null);
     const [reviewStatus, setReviewStatus] = useState<string | undefined>();
     const { user } = useSelector((state: any) => state.auth)
@@ -50,12 +55,29 @@ interface PageParams {
         }
     }, [request]);
 
-    const handleStatusChange = async (val:string) => {
+    const handleStatusChange = async (val: string) => {
         setReviewStatus(val)
-        await reviewSubmission({ reviewId: request_id, status: val });
+        formik.setFieldValue('status', val)
+        console.log("status saved ===== ", val)
     }
-    console.log("reviewStatus = ", reviewStatus)
+    // console.log("reviewStatus = ", reviewStatus)
 
+
+    // review form 
+    const formik = useFormik({
+        initialValues: {
+            comment: '',
+            status: reviewStatus || 'pending',
+        },
+        validationSchema: Yup.object({
+            status: Yup.string()
+                .oneOf(['pending', 'approved', 'rejected'], 'Invalid status selected') // restrict the status to specific values
+                .required('Status is required'),
+        }),
+        onSubmit:async ({ comment }) => {
+            await reviewSubmission({ reviewId: request_id, status: reviewStatus, comment });
+        },
+    });
 
 
 
@@ -100,15 +122,15 @@ interface PageParams {
                                         <TableRow key={request?._id}>
                                             <TableCell className="font-medium break-words max-w-[50px] ">{request?.productId?.title}</TableCell>
                                             <TableCell className='min-w-[100px] '>
-                                            <div className='w-full h-60 flex-center '>
-                    <Image
-                      src={request?.productId?.image ? request?.productId?.image : '/assets/images/not-available.jpg'}
-                      width={230}
-                      height={230}
-                      className='w-full h-full object-cover rounded-xl '
-                      alt={`${request?.productId?.title}`}
-                    />
-                  </div>
+                                                <div className='w-full h-60 flex-center '>
+                                                    <Image
+                                                        src={request?.productId?.image ? request?.productId?.image : '/assets/images/not-available.jpg'}
+                                                        width={230}
+                                                        height={230}
+                                                        className='w-full h-full object-cover rounded-xl '
+                                                        alt={`${request?.productId?.title}`}
+                                                    />
+                                                </div>
                                             </TableCell>
                                             <TableCell className="font-medium">{request?.productId?.description}</TableCell>
                                             <TableCell>{request?.productId?.price}</TableCell>
@@ -179,26 +201,62 @@ interface PageParams {
                                         </TableRow>
                                     </TableBody>
 
-                                    <TableFooter>
-                                        <TableRow>
-                                            <TableCell className='flex flex-row gap-4 items-center'>
-                                                <p>Change Status</p>
-                                                <Select value={reviewStatus} onValueChange={handleStatusChange}>
-                                                    <SelectTrigger className="w-[180px]">
-                                                        <SelectValue placeholder="Status" />
-                                                    </SelectTrigger>
-                                                    <SelectContent>
-                                                        <SelectItem value="pending">Pending</SelectItem>
-                                                        <SelectItem value="approved">Approved</SelectItem>
-                                                        <SelectItem value="rejected">Rejected</SelectItem>
-                                                    </SelectContent>
-                                                </Select>
 
+                                    {/*  table footer */}
+                                    <TableFooter className="w-full">
+                                        <TableRow className="w-full">
 
+                                            <TableCell className="w-full flex flex-col items-start gap-4 ">
+                                                <form onSubmit={formik.handleSubmit} className="w-full flex flex-col gap-4 ">
+                                                    {/* Status Select */}
+                                                    <div className="flex flex-col gap-1">
+                                                        <label className="font-medium">Change Status</label>
+                                                        <Select 
+                                                            value={formik.values.status}
+                                                            onValueChange={handleStatusChange}
+                                                        >
+                                                            <SelectTrigger className="w-[180px]">
+                                                                <SelectValue placeholder="Status" />
+                                                            </SelectTrigger>
+                                                            <SelectContent>
+                                                                <SelectItem value="pending">Pending</SelectItem>
+                                                                <SelectItem value="approved">Approved</SelectItem>
+                                                                <SelectItem value="rejected">Rejected</SelectItem>
+                                                            </SelectContent>
+                                                        </Select>
+                                                        {
+                                                            formik.errors.status && formik.touched.status &&
+                                                            <span className='text-red-500 pt-2 block'>{formik.errors.status}</span>
+                                                        }
+                                                    </div>
 
+                                                    {/* Comment Input */}
+                                                    <div className="flex flex-col gap-1">
+                                                        <label htmlFor="comment" className="font-medium">Comment</label>
+                                                        <textarea
+                                                            id="comment"
+                                                            name="comment"
+                                                            className={`${styles.input} h-24`}
+                                                            onChange={formik.handleChange}
+                                                            onBlur={formik.handleBlur}
+                                                            value={formik.values.comment}
+                                                        />
+                                                    </div>
+
+                                                    {/* Submit Button */}
+                                                    <div className='w-full mt-5'>
+                                                        <button type='submit' disabled={reviewSubmissionIsLoading} className={`${styles.button}`} >
+                                                            {
+                                                                reviewSubmissionIsLoading ? <LoadingButtonText />
+                                                                    : 'Submit'
+                                                            }
+                                                        </button>
+                                                    </div>
+                                                </form>
                                             </TableCell>
                                         </TableRow>
                                     </TableFooter>
+
                                 </Table>
 
                             </div>

@@ -13,7 +13,8 @@ export default function FileUploader({ imageUrl, setFiles, setFieldValue }: File
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [previewSource, setPreviewSource] = useState<string>("");
     const inputRef = useRef<HTMLInputElement | null>(null);
-console.log("imageUrl = ", imageUrl)
+    // console.log("imageUrl = ", imageUrl)
+    
     const onDrop = (acceptedFiles: File[]) => {
         const file = acceptedFiles[0];
         if (file) {

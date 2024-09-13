@@ -10,6 +10,7 @@ interface IReview {
     reviewedBy?: Schema.Types.ObjectId;   // mark as optional, initially the review is not reviewed
     createdAt: Date;
     updatedAt: Date;
+    comment?: string; // Optional comment field , The admin can add comments or explanations related to the product changes.
 }
 
 
@@ -36,6 +37,10 @@ const reviewSchema = new Schema<IReview>({
     reviewedBy: {
         type: Schema.Types.ObjectId,
         ref: 'User'
+    },
+    comment: {
+        type: String,
+        required: false
     },
     createdAt: {
         type: Date

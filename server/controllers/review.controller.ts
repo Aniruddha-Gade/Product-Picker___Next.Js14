@@ -48,12 +48,13 @@ export const submitReview = catchAsyncError(async (req: Request, res: Response, 
 // =========================== REVIEW SUBMISSION ===========================
 interface IReviewSubmission {
     status: string,
+    comment: string,
 }
 
 export const reviewSubmission = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { reviewId } = req.params;
-        const { status } = req.body as IReviewSubmission;  // 'pending' | 'approved' | 'rejected'
+        const { status, comment } = req.body as IReviewSubmission;  // 'pending' | 'approved' | 'rejected'
         const adminId = req.user?._id;
 
         // validate data
@@ -75,6 +76,7 @@ export const reviewSubmission = catchAsyncError(async (req: Request, res: Respon
         }
 
         review.status = status;
+        review.comment = comment;   // The admin can add comments or explanations related to the product changes.
         review.reviewedBy = adminId;
         review.updatedAt = Date.now();
 

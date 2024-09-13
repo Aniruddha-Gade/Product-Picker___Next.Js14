@@ -24,7 +24,7 @@ const Header: FC<HeaderProps> = ({ activeItem, open, route, setRoute, setOpen })
     const [active, setActive] = useState(false)
     const { token } = useSelector((state: any) => state.auth)
 
-    console.log("token = ", token)
+    // console.log("token = ", token)
 
     useEffect(() => {
         if (typeof window !== "undefined") {
