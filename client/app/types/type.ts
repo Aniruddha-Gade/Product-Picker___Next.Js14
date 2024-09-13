@@ -44,6 +44,7 @@ export interface IRequest {
     __v: number;
     updatedAt: string;
     createdAt: string;
+    comment: string;
 }
 
 

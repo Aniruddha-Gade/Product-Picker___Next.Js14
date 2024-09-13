@@ -169,7 +169,7 @@ const PendingRequestPage = () => {
 
                     {/* comment from Admin */}
                     {
-                      request.comment && <div className=''>
+                      request?.comment && <div className=''>
                         <h3 className='text-xl font-semibold'>Comment from Admin</h3>
                         <p className="text-gray-900 text-sm dark:text-white/70 whitespace-pre-wrap">
                           {request?.comment}
