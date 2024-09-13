@@ -62,7 +62,10 @@ const PendingRequestPage = () => {
                     <div className='absolute flex-center -top-2 -right-2 bg-green-600 w-10 h-10 p-3 rounded-full '>
                       <p className='text-black dark:text-white font-bold text-xl'>{index + 1}</p>
                     </div>
-                    <div className="mb-4 flex justify-between gap-3 p-3 rounded-lg bg-black/10 dark:bg-white/10">
+                    <Link
+                        href={`/product/${request?.productId?._id}`} 
+                        className="mb-4 flex justify-between gap-3 p-3 rounded-lg bg-black/10 hover:bg-black/15 dark:bg-white/10 dark:hover:bg-white/15 duration-200"
+                     >
                       <div className='flex flex-col gap-3 p-3 w-[60%] '>
                         <p>Original Product</p>
                         <div className="text-lg font-semibold text-gray-900 dark:text-white">
@@ -96,7 +99,7 @@ const PendingRequestPage = () => {
                           alt={`${request?.productId?.title}`}
                         />
                       </div>
-                    </div>
+                    </Link>
 
                     <div className='flex flex-col gap-5 '>
                       <div className="text-lg font-semibold text-gray-900 dark:text-white">
