@@ -93,20 +93,51 @@ export const createProduct = [
 
 
 // =========================== GET PRODUCTS ===========================
+// export const getProducts = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
+//   try {
+
+
+//     const createdBy = req.user?._id;
+
+//     // Find user's products
+//     const products = await ProductModel.find({ createdBy })
+//       .sort({ createdAt: -1 });
+
+//     // send success response
+//     res.status(201).json({
+//       success: true,
+//       products,
+//       message: "Product fetched successfully",
+//     });
+
+//   } catch (error: any) {
+//     return next(new ErrorHandler(error.message, 400, "Error while fetching product"));
+//   }
+// });
+
+
+// =========================== GET PRODUCTS WITH PAGINATION ===========================
 export const getProducts = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
   try {
-
+    const { page = 1, limit = 10 } = req.query;  // default page is 1 and limit is 10
+    const skip = Math.max(0, (parseInt(page as string) - 1) * parseInt(limit as string));  // ensure skip is never negative
 
     const createdBy = req.user?._id;
 
-    // Find user's products
+    // Find user's products with pagination
     const products = await ProductModel.find({ createdBy })
-      .sort({ createdAt: -1 });
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(parseInt(limit as string));
+
+    const allProductsCount = await ProductModel.countDocuments({createdBy})
 
     // send success response
-    res.status(201).json({
+    res.status(200).json({
       success: true,
       products,
+      allProductsCount,
+      totalPages: Math.ceil(allProductsCount / Number(limit)),
       message: "Product fetched successfully",
     });
 
@@ -114,6 +145,7 @@ export const getProducts = catchAsyncError(async (req: Request, res: Response, n
     return next(new ErrorHandler(error.message, 400, "Error while fetching product"));
   }
 });
+
 
 
 
