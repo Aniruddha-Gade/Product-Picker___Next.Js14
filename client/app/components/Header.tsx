@@ -46,7 +46,7 @@ const Header: FC<HeaderProps> = ({ activeItem, open, route, setRoute, setOpen })
     }, []);
 
     return (
-        <nav className='w-full relative '>
+        <nav className={`${active ? 'pt-[80px]' : ''} w-full relative`}>
             <div className={`${active ? 'fixed top-0 left-0 dark:bg-opacity-50 dark:bg-gradient-to-b dark:from-gray-900 dark:to-black dark:border-[#ffffff1c] shadow-xl transition duration-500 '
                 : 'dark:border-[#ffffff1c] dark:shadow '} 
                 w-full h-[80px] z-[100] border-b-2 border-b-[#1717173f] `}
