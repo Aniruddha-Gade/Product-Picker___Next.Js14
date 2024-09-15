@@ -116,7 +116,7 @@ const AllProductsWithPaginationPage = () => {
             </ul>
 
             {/* Pagination */}
-            <Pagination>
+            <Pagination className='mt-10'>
               <PaginationContent>
                 <PaginationItem>
                   <PaginationPrevious
