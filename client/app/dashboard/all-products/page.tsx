@@ -72,6 +72,39 @@ const AllProductsWithPaginationPage = () => {
           </div>
         ) : (
           <>
+          
+          {/* Pagination */}
+          <Pagination className='mb-10'>
+              <PaginationContent>
+                <PaginationItem>
+                  <PaginationPrevious
+                    href="#"
+                    onClick={() => handlePageChange(currentPage - 1)}
+                  // disabled={currentPage === 1}
+                  />
+                </PaginationItem>
+                {[...Array(data?.totalPages)].map((_, index) => (
+                  <PaginationItem key={index}>
+                    <PaginationLink
+                      href="#"
+                      onClick={() => handlePageChange(index + 1)}
+                      className={currentPage === index + 1 ? 'bg-green-600 ' : ''}
+                    >
+                      {index + 1}
+                    </PaginationLink>
+                  </PaginationItem>
+                ))}
+                <PaginationItem>
+                  <PaginationNext
+                    href="#"
+                    onClick={() => handlePageChange(currentPage + 1)}
+                  // disabled={currentPage === data?.totalPages}
+                  />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
+
+
             <ul className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
               {products && products?.map((product: IProduct) => (
                 <Link
