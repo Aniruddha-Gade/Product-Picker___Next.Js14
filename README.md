@@ -78,6 +78,7 @@ Backend deployed on Render 📬 : [ ]
 - **Reusable Components**:📌 reusable component to create, view and review Products
 - **Loading Skeleton**:💡 Implement loading skeleton rather than just showing loading text 
 - **Quality**:✅ I make sure to have best UI and code quality to deliver this project
+- **Pagination**:➡️ ensuring only the necessary data is fetched from the server.
 
 
 # File Structure 📁
