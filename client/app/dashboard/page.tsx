@@ -12,7 +12,7 @@ import { IProfileStats } from "../types/type"
 
 const page = () => {
 
-  const { user } = useSelector((state: any) => state.auth)
+  const { user, token } = useSelector((state: any) => state.auth)
   const [profileStats, setProfileStats] = useState<IProfileStats | null>(null);
   const { data, isSuccess, error, isLoading } = useGetProfileStatsQuery({})
 
@@ -30,6 +30,18 @@ const page = () => {
       }
     }
   }, [isSuccess, error])
+
+
+  // useEffect(()=>{
+  //   if(!user || !token) {
+  //   router.push("/")
+  //   setOpen(true)
+  //   setRoute("auth")
+  //   }
+  //     },[user, token])
+
+  //     console.log("user from dashborad = ", user)
+  //     console.log("token from dashborad = ", token)
 
   return (
     <div>

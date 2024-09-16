@@ -11,13 +11,14 @@ require('dotenv').config()
 // =========================== IS AUTHENTICATED ===========================
 export const isAuthenticated = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const access_token = req.cookies.access_token as string;
-        if (!access_token) {
+        const refresh_token = req.headers.authorization?.split(' ')[1]
+                                  || req.cookies.refresh_token as string;
+        if (!refresh_token) {
             return next(new ErrorHandler('Please login to access this resource', 400, "Error while authenticating"));
         }
 
         // Decode token
-        const decodeToken = jwt.verify(access_token, process.env.ACCESS_TOKEN_SECRET as string) as JwtPayload & IUser;
+        const decodeToken = jwt.verify(refresh_token, process.env.REFRESH_TOKEN_SECRET as string) as JwtPayload & IUser;
         console.log("decodeToken = ", decodeToken)
         // example - 
         // {

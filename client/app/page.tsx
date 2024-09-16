@@ -1,6 +1,8 @@
 'use client'
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from 'next/navigation'
+import { useSelector } from 'react-redux'
 import Image from "next/image";
 import Heading from "./utils/Heading";
 import Header from "./components/Header";
@@ -13,7 +15,20 @@ export default function Home() {
   const [activeItem, setActiveItem] = useState(0)
   const [route, setRoute] = useState("")
 
+  const { token,user } = useSelector((state: any) => state.auth)
+  const router = useRouter()
 
+  useEffect(()=>{
+    if(!user || !token) {
+      router.push("/")
+      setOpen(true)
+      setRoute("auth")
+   }
+  },[user, token])
+
+
+  console.log("user from root page = ", user)
+  console.log("token from root page = ", token)
   return (
     <div className="">
       <Heading

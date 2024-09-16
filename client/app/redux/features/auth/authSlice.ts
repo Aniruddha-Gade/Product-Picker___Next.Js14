@@ -3,14 +3,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 
-// const initialState = {
-//   token: typeof window !== 'undefined' ? localStorage.getItem("token") || "" : "",
-//   user: typeof window !== 'undefined' ? JSON.parse(localStorage.getItem("user") || "{}") : {},
-// };
-
 const initialState = {
-  token:  "",
-  user:  {},
+  token:typeof window !== undefined ? localStorage.getItem("token") : "" ,
+  user: typeof window !== undefined ? localStorage.getItem("user") : {},
 };
 
 
@@ -21,27 +16,27 @@ const authSlice = createSlice({
   reducers: {
     userRegistration: (state, action: PayloadAction<{ token: string }>) => {
       state.token = action.payload.token;
-      // if (typeof window !== 'undefined') {
-      //   localStorage.setItem("token", action.payload.token);
-      // }
+      if (typeof window !== 'undefined') {
+        localStorage.setItem("token", action.payload.token);
+      }
     },
     userLoggedIn: (state, action: PayloadAction<{ accessToken: string, user: string }>) => {
-      console.log('action.payload.user = ', action.payload.user)
+      // console.log('action.payload.user = ', action.payload.user)
       state.token = action.payload.accessToken;
       state.user = action.payload.user;
-      // if (typeof window !== 'undefined') {
-      //   localStorage.setItem("token", action.payload.accessToken);
-      //   localStorage.setItem("user", JSON.stringify(action.payload.user)); 
-      // }
+      if (typeof window !== 'undefined') {
+        localStorage.setItem("token", action.payload.accessToken);
+        localStorage.setItem("user", JSON.stringify(action.payload.user)); 
+      }
     },
     userLoggedOut: (state) => {
       console.log("removing tokens from local storage")
       state.token = "";
       state.user = "";
-      // if (typeof window !== 'undefined') {
-      //   localStorage.removeItem("token");
-      //   localStorage.removeItem("user");
-      // }
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+      }
     },
   },
 });

@@ -237,7 +237,10 @@ export const logoutUser = catchAsyncError(async (req: Request, res: Response, ne
 // =========================== UPDATE ACCCESS TOKEN ===========================
 export const updateAccessToken = catchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const refresh_token = req.cookies.refresh_token as string;
+      
+        const refresh_token = req.headers.authorization?.split(' ')[1]
+            || req.cookies.refresh_token as string;
+        
 
         const decodedToken = jwt.verify(
             refresh_token,
@@ -279,7 +282,7 @@ export const updateAccessToken = catchAsyncError(async (req: Request, res: Respo
 
         // store in redis with 7 days expiry time
         await redis.set(user._id, JSON.stringify(user), "EX", 604800) // 7 days
-       
+
         next()
 
     } catch (error: any) {

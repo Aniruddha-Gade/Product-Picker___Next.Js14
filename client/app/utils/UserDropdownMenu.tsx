@@ -29,7 +29,8 @@ const UserDropdownMenu = () => {
   const logoutHandler = async () => {
     setLogout(true)
     toast.success("Logout successfully")
-    router.push("/")
+    router.replace("/")
+    console.log("redirect to home")
   }
 
   return (
