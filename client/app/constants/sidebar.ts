@@ -22,14 +22,14 @@ export const sidebarLinks: SidebarLink[] = [
     roles: [ACCOUNT_TYPE.TEAM_MEMBER, ACCOUNT_TYPE.ADMIN],
   },
   {
-    id: 6,
+    id: 2,
     name: "Create Product",
     path: "/dashboard/create-product",
     icon: "/assets/icons/create-product-icon.png",
     roles: [ACCOUNT_TYPE.TEAM_MEMBER, ACCOUNT_TYPE.ADMIN],
   },
   {
-    id: 2,
+    id: 3,
     name: "All Products",
     path: "/dashboard/all-products",
     icon: "/assets/icons/products-icon.png",
@@ -42,14 +42,19 @@ export const sidebarLinks: SidebarLink[] = [
     icon: "/assets/icons/submission-icon.png",
     roles: [ACCOUNT_TYPE.TEAM_MEMBER],
   },
-
-
   {
     id: 5,
     name: "Pending Requests",
     path: "/dashboard/admin/pending-requests",
     icon: "/assets/icons/watch-icon.png",
     roles: [ACCOUNT_TYPE.ADMIN],
+  },
+  {
+    id: 6,
+    name: "Server Side - All Products",
+    path: "/dashboard/server-side-all-products",
+    icon: "/assets/icons/products-icon.png",
+    roles: [ACCOUNT_TYPE.TEAM_MEMBER, ACCOUNT_TYPE.ADMIN],
   },
 
 ];
