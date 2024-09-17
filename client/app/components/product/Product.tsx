@@ -7,7 +7,7 @@ import { formatDate } from '../../../lib/formatDate';
 interface ProductProps {
   product: IProduct;
 }
-w
+
 
 
 const Product: React.FC<ProductProps> = ({ product }) => {
