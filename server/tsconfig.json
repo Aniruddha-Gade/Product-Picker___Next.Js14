@@ -13,11 +13,14 @@
     "isolatedModules": true
   },
   "include": [
+    "types/**/*",
+    "lib/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
   ],
   "exclude": [
     "node_modules",
     "dist"
-  ]
+  ],
+  "files": ["types.d.ts"]
 }
