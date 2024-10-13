@@ -4,7 +4,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 
 const initialState = {
-  token:typeof window !== undefined ? localStorage.getItem("token") : "" ,
+  token: typeof window !== undefined ? localStorage.getItem("token") : "" ,
   user: typeof window !== undefined ? localStorage.getItem("user") : {},
 };
 

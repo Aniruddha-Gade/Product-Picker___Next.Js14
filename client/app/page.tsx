@@ -19,7 +19,7 @@ export default function Home() {
   const router = useRouter()
 
   useEffect(() => {
-    if (!user || !token) {
+    if (!user && !token) {
       router.push("/")
       setOpen(true)
       setRoute("auth")
