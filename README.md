@@ -15,7 +15,7 @@
 <h2>YouTube Presentation ⚡- [ https://youtu.be/IK8wvrQt_90?feature=shared ]  </h2>
 
 <h2>
-Postman Collection 📬 : [ ]
+Postman Collection 📬 : [ https://documenter.getpostman.com/view/29064533/2sAY4xAMG5 ]
 </h2>
 
 <h2>
